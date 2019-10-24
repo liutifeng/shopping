@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  对应接口的全路径 -->
+<mapper namespace="com.yc.dao.AddrMapper">
+	<insert id="add" parameterType="AddrPO">
+		insert into AddrInfo values(0,#{mno},#{name},#{tel},#{province},#{city},#{area},#{addr},1)
+	</insert>
+	
+	<select id="findByMno" resultType="AddrPO">
+		select ano, mno,name,tel,province,city,area,addr,status from addrInfo where mno=#{mno} order by ano;
+	</select>
+	
+	
+	
+	
+</mapper>

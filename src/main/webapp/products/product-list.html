@@ -1,0 +1,458 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>享购网</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <LINK href="../images/favicon.ico" type="image/x-icon" rel=icon>
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../css/common/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css~time=.css"+timestamp rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/AboutUs.css" rel="stylesheet" type="text/css" />
+    <link href="../css/common/pagination.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/product.css" rel="stylesheet" type="text/css" />
+    <script src="../assets/js/jquery-1.7.2.min.js"></script>
+</head>
+<style>
+    p {
+        font-size: 14px;
+        text-align: center;
+        color: black;
+    }
+    .index-price-login{
+        margin-left: 25px;
+        margin-top: 28px;
+        line-height: 22px;
+        font-size: 14px;
+        border: 1px dashed #666;
+        text-align: center;
+        padding: 5px 20px;
+        cursor: pointer;
+        color: #666;
+        display: inline-block;
+        /*margin: 6px 0;*/
+        box-sizing: border-box;
+        font-family: tahoma, "Microsoft YaHei", arial, "Hiragino Sans GB", 宋体, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size-adjust: none;
+        font-stretch: normal;
+        font-feature-settings: normal;
+        font-language-override: normal;
+        font-kerning: auto;
+        font-variant-alternates: normal;
+        font-variant-caps: normal;
+        font-variant-east-asian: normal;
+        font-variant-ligatures: normal;
+        font-variant-numeric: normal;
+        font-variant-position: normal;
+    }
+</style>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+<div class="header">
+    <div class="top">
+        <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+             <div class="top-right fr">
+             <a href="../login/login.html" class="top-login" onclick="login()">登录</a>
+             <a href="../userInfo/user-info1.html" class="top-user"></a>
+             <a href="javascript:void(0)" id="top-exit" onclick="exit()" style="display: none;">退出</a>
+            <a href="../login/register.html" id="top-register" class="top-register">注册</a>
+          
+            
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+          
+        
+          
+            
+            <!-- <a href="https://www.kuaidi100.com/openapi/applyapi.shtml?free=free" class="top-cart">快递查询</a> -->
+        </div>
+    </div>
+</div>
+<div class="search-wrapper ofh">
+     <a href="../index.html"><img src="../images/logo-t.png" class="logo-left"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<div class="goodsbrand-body">
+   <div class="goodsbrand-pricebody"></div>
+    <div class="clear"></div>
+    <div class="pager">
+        <div class="pagerBox">
+            <ul>
+                <li class="num fixp"><a href="javascript:void(0)" id="first_page">首页</a></li>
+                <li class="prev"><a href="javascript:void(0)">上一页</a></li>
+                <li class="num current" onclick="num(1)"><span id="currentIndex">1</span></li>
+                <!--<li class="num" onclick="num(2)"><a href="javascript:void(0)">2</a></li>-->
+                <!--<li class="num" onclick="num(3)"><a href="javascript:void(0)">3</a></li>-->
+                <!--<li class="num" onclick="num(4)"><a href="javascript:void(0)">4</a></li>-->
+                <!--<li class="num" onclick="num(5)"><a href="javascript:void(0)">5</a></li>-->
+                <!--<li class="num" onclick="num(6)"><a href="javascript:void(0)">6</a></li>-->
+                <li class="next"><a href="javascript:void(0)">下一页</a>
+                </li><li class="num fixp" id="last_page"><a href="javascript:void(0)">末页</a></li>
+                <li class="count">共15页</li>
+            </ul>
+            <input type="hidden" id="list_mid" value=""/>
+            <div class="jumptopage">
+                <i class="switch">&nbsp;|&nbsp;跳转到第</i>
+                <input type="text" id="gotoPage" name="gotoPageNo" value="1">
+                <input type="hidden" id="maxPage" value="15">
+                <input type="hidden" id="currentUrl" value="http://www.isgo.com/list-s8mg1624-0-0-1.html" name="currentUrl" >
+                <i class="ym">页</i>
+            </div>
+            <button class="confirm" onclick="_confirm()">确认</button>
+        </div>
+    </div>
+    <!--右侧购物车 开始-->
+  <div class="miniCart">
+        <div class="miniCartGoods">
+            <!-- <div class="miniCartGoodsN"></div> -->
+            <a href="../car/car.html" class="miniCartGoods" onclick="gotoCartManeger()">
+                <img src="../assets/images/miniCartGoods.png" alt=""/></a>
+        </div>
+        
+        <div class="miniCart-top">
+            <a href="#" class="backToTop">
+                <img src="../assets/images/backToTop.png" alt=""/></a>
+        </div>
+    </div>
+    <!--右侧购物车 结束-->
+</div>
+<div class="ifooter">
+      <div class="pwm serivcelist clearfix">
+      
+
+        <p class="paylogo" style="margin-top:0px;"></p>
+    </div>
+    <div style="width:300px;margin:0 auto; padding:0px 0 20px 0;">
+        
+           
+              <img  src="../images/logo-center.png">
+
+            <p style="float:left;height:20px;line-height:20px;margin-left:85px;margin-top:10px; color:#939393;">乐购.快乐的购物</p></a>
+    </div>
+</div>
+<script src="../js/common/jquery.min.js"></script>
+<script src="../js/common/jquery-cookie.js"></script>
+<script src="../js/common/artTemplate.js"></script>
+ <script src="../js/common/url.js"></script>
+<script src="../js/common/dialog.js"></script>
+<script src="../js/common/car.js"></script>
+<script src="../js/common/jquery.pagination.js"></script>
+
+
+<script type="text/javascript">
+   
+    var page_index = 1;
+    var page_total = 0;
+    var size=16;
+    var total =0;
+    var href=window.location.href;
+	 var tino=href.split('=')[1];
+	//alert(tino);
+    $(function(){
+        askNav();
+        checkLogin();
+     
+        
+       
+        //$(".pagination-wrapper").empty();
+        //askCutNumb();
+        getDisplayList();
+    });
+    
+    //跳到登录页面
+    function login(){
+    	let href=window.location.href;
+		   localStorage.setItem("href", href);
+		   window.location.href="../login/login.html";
+    }
+  //验证登录
+    function checkLogin(){
+     	
+     	//alert(href);
+ 	  
+ 	   $.post('../member/checkLogin',function(data){
+ 		   //console.log(data);
+ 		   //console.log(localStorage.getItem("href"));
+ 		   
+ 		   if(data!=null &&data!=''){
+ 			 flag=true;
+ 			 //  $('.top-login').text('');
+ 			 $('.top-user').text(data.nickname);
+ 			// $('.top-login').attr("href","../userInfo/user-info1.html");
+ 			    $('.top-login').css('display','none');
+ 			   $('.top-user').css('display','inline');
+ 			  $('#top-exit').css('display','inline');
+ 			 $('.top-register').css('display','none');
+ 			
+ 			
+ 			
+ 		   }else{
+ 			 
+ 	  		 $('.top-register').css('display','inline');
+ 	  		
+ 		   }
+ 		  
+ 	   });
+ 	   
+     }
+     
+     //登录后退出
+     function exit(){
+    	 
+     	$.post('../member/quit',function(data){
+  		   console.log(data);
+  		  if(data==1){
+  			//checkLogin();
+  			 //$('.top-login').text("登录");
+  			// let show=document.getElementById("top-exit");
+			  // show.style.display = "none";
+  			location.reload(true);
+  		  }
+  		  
+  	   });
+     }
+     
+    //获取商品总数
+    function askTotal(){ 
+    	$.post("../good/goodsNum",{tino:tino},function(data){
+            //console.log(data);
+    		total=data;
+    	},'json');
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    // 加载导航
+    function askNav() {
+        $.ajax({
+            type:"GET",
+            url: "../type/findAll",
+            dataType:"json",
+            success: function (data) {
+            	//console.log(data);
+                var askData;
+                var navHtml = '<li><a href="../index.html">首页</a></li>';
+                for (var i = 0; i < data.length; i++) {
+                    
+                        navHtml += '<li>'+
+                            '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                            '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                               
+                                for (var j = 0; j < data[i].typeItem.length; j++) {
+                                	//console.log(data[i].typeItem[j].tname);
+                                	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                                	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                                	
+                                }
+                               // console.log(navHtml);
+                                navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                               
+                                //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                            
+                       
+                    
+                        //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                                
+                }
+              //  console.log(navHtml);
+                $('.navTop ul').html(navHtml);
+             
+            }
+        });
+    }
+    //    搜索
+    $(".search-btn").on("click",function(){
+        searchKey();
+    });
+    function searchKey(){
+        sessionStorage.removeItem("typePath");
+        sessionStorage.removeItem("typeName");
+        var keyWord = $.trim($(".search-input").val());
+        if (keyWord==null || keyWord.length <=0) {
+            dialogModule.iTips("请输入搜索的关键字");
+            return false;
+        }else{
+            sessionStorage.keyWord = keyWord;
+            window.location.href = "product-all.html";
+        }
+    }
+    function searchKeyDown(event){
+        if (event.keyCode == 13) {
+            event.returnValue = false;
+            event.cancel = true;
+            searchKey();
+        }
+    }
+   
+    //获取商品组和商品组下面的列表
+    function getDisplayList (){
+    	 askTotal();
+    	 var str2='';
+        $.ajax({
+            type:"GET",
+            url: $.url.locationUrl + "good/findByPage",
+           
+            dataType:"json",
+            data:{
+                
+              tino:tino,
+              size:size,
+        	  page:page_index
+                
+               
+            },
+            success: function (data) {
+            	var dsize=data.length;
+            	console.log("dsize:"+dsize);
+            	if(data.length>16){
+            		dsize=16;
+            	}
+               // console.log(data);
+                //console.log(total);
+                page_total=Math.ceil(total/size);
+               // console.log(page_total);
+                if(data.length == 0){
+                    $(".pager").hide();
+                    $(".goodsbrand-pricebody").empty().append("<div class='mem-nopdtab' style='margin-left: 450px'>&nbsp;&nbsp;未查询到商品</div>")
+                }else{
+                	//console.log("dsize:"+dsize);
+                    for(var i=0;i<dsize;i++){
+                    	 var pics = data[i].pics;
+                         var images=pics.split(',')[0];
+                         console.log(images);
+                    	
+                       str2+='<div class="goodsbrand-price" data-money="878.00" id="" ><div class="bannerrightimg">'
+                       +' <div class="bannerrightimg-img goodsbrand-body-img" style="width:250px; height:250px;  margin-top:0px">'
+                       +'<a href="product-detail.html?gno='+data[i].gno+'" >'
+                       +'<img src="../'+images+'" width="180" height="180"> </a></div>'
+                       +'<div class="bannerrightdetails goodsbrand-price-details">'
+                       +' <div class="bannerrightdescribe">'
+                       +'<a href="product-detail.html?gno='+data[i].gno+'" class="title"  title="帕黑格红葡)">'
+                       +data[i].gname+'</a></div>'
+                       +' <div price_holder="h9xu23214" show_position="goods_page" class="goodsPriceN">'
+                       +' <i class="goodsbrand-cost">￥'+data[i].price+'</i>  </div></div></div> </div>';
+                       //+' <div class="soldGoodsN">已售??件</div> </div></div> </div>';
+                              
+                           
+                    }
+                   // console.log(str2);
+                    $('.goodsbrand-pricebody').html(str2);
+                   // $(".pager").show();
+                    $(".count").text("共"+Math.ceil(total/16)+"页 当前第"+page_index+"页");
+                    //$(".goodsbrand-pricebody").empty().append(str2);
+                    
+                    
+                }
+             
+            }
+        });
+    }
+   // function pageselectCallback(page_index) {
+     //   getDisplayList(page_index);
+    //}
+  
+
+    
+    //分页
+    $("#first_page").click(function(){
+        if(page_index<=1) return;
+        page_index=1;
+        $("#currentIndex").html(page_index);
+        getDisplayList();
+    });
+    $(".prev").click(function(){
+        if(page_index<=1) return;
+        page_index--;
+        $("#currentIndex").html(page_index);
+        getDisplayList();
+    });
+    $(".next").click(function(){
+        if(page_index>=page_total) return;
+        page_index++;
+        $("#currentIndex").html(page_index);
+        getDisplayList();
+    });
+    $("#last_page").click(function(){
+        if(page_index>=page_total) return;
+        page_index = page_total;
+        $("#currentIndex").html(page_index);
+        getDisplayList();
+    });
+    function _confirm(){
+        if (!($("#gotoPage").val())) {
+            dialogModule.iTips('请输入页数');
+            return;
+        }
+        var current = $("#gotoPage").val();
+        current = parseInt(current);
+        if(current<1) return;
+        if (current>page_total) {
+            current = 1;
+            $("#gotoPage").val('1');
+        };
+        page_index=current;
+        $("#currentIndex").html(page_index);
+        getDisplayList();
+    }
+    function num(d){
+        if(d>=page_total) return;
+        page_index = d;
+        getDisplayList();
+    }
+
+    $('.navTop').on('click', '#tno', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+        $('.navTop').on('click', '#tino', function(){
+            if ($(this).data('num')) {
+                window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+                //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+            }
+        });
+    $('.tuangou').hover(function(){
+        $('.together-bottom').hide();
+        $('.together-top').show();
+        $('.leibie').show();
+    },function(){
+        $('.together-top').hide();
+        $('.together-bottom').show();
+        $('.leibie').hide();
+    });
+       
+</script>
+</body>
+</html>

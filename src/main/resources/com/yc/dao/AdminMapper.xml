@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.AdminMapper">
+<!-- id值必须跟这个接口里面的方法一致 -->
+
+	<!-- 根据用户名或手机号码登录 
+	public AdminPO login(AdminPO po);
+	-->
+	<select id="login" parameterType="AdminPO" resultType="AdminPO">
+		select aid,aname,pwd,tel from adminInfo where (aname=#{aname} or tel = #{aname}) and pwd = md5(#{pwd})
+	</select>
+
+	<!-- 添加管理员
+	public int add(AdminPO po); -->
+	<insert id="add" parameterType="AdminPO">
+		insert into admininfo values(null,#{aname},md5(#{pwd}),#{tel},1)
+	</insert>
+
+	<!-- 查看所有
+	public List<AdminPO> findAll(); -->
+	<select id="findAll" resultType="AdminPO">
+		select aid,aname,pwd,tel,status from admininfo order by aid
+	</select>
+	
+	<!-- 重置密码
+	 public int updatePwd(Integer aid); -->
+	<update id="updatePwd" parameterType="int">
+		update admininfo set pwd = md5(right(tel,6)) where aid = #{_parameter}
+	</update>
+	
+	<!-- 模糊查询管理员
+	public List<AdminPO> findAdmin(String adminname); -->
+	<select id="findAdmin" resultType="AdminPO">
+		<bind name="adminname" value="'%'+_parameter+'%'"/>
+		select aid,aname,pwd,tel,status from admininfo where aname like #{adminname} order by aid
+	</select>
+	
+	<!-- 修改状态
+	public int updateStatus(AdminPO po); -->
+	<update id="updateStatus" parameterType="AdminPO">
+		update admininfo set status=#{status} where aid=#{aid}
+	</update>
+	
+	<!-- 分页查询
+	public List<AdminPO> findByPage(int page,int size); 如果没用@Param("XX")定义参数，参数分别用arg0,arg1代替
+	public List<AdminPO> findByPage(@Param("page")int page,@Param("size")int size); -->
+	<select id="findByPage" resultType="AdminPO">
+		<bind name="num" value="(page-1)*size"></bind>
+		select aid,aname,pwd,tel,status from admininfo limit #{num},#{size}
+	</select>
+	
+	<!-- 分页查询总条数
+	public int totalPage(); -->
+	<select id="totalPage" resultType="int">
+		select count(*) from admininfo
+	</select>
+	
+</mapper>

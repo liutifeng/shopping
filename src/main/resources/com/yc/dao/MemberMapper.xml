@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  对应接口的全路径 -->
+<mapper namespace="com.yc.dao.MemberMapper">
+<!-- public int add(MemberPO mf); -->
+	<insert id="add" parameterType="MemberPO">
+		insert into memberInfo values(null,'aaa', md5(#{pwd}), #{tel},'', '', now(), 1)
+	</insert>
+	
+	<!-- public MemberPO login(MemberPO mf); -->
+	<select id="login" parameterType="MemberPO" resultType="MemberPO">
+		select mno, nickname, tel, email,date_format(regDate,'%Y-%m-%d %H:%i:%s') regDate, status from memberinfo where tel=#{tel} and pwd=md5(#{pwd})
+	</select>
+	
+	<!-- public MemberPO finByMno(Integer mno); -->
+	<select id="findByMno" resultType="MemberPO">
+		select * from memberinfo where mno=#{mno} and pwd=md5(#{pwd})
+	</select>
+
+	
+	
+	<!-- public int updateMember(MemberPO mf); -->
+	<!--修改个人信息  -->
+	<update id="updateMember" parameterType="MemberPO">
+		update 
+		memberInfo 
+		<set>
+		
+		<if test="nickname!=null and nickname!=''">
+			  nickname=#{nickname},
+			</if>
+			<if test="email!=null and email!=''">
+			email=#{email},
+			</if>
+			<if test="sex!=null and sex!=''">
+			sex=#{sex},
+			</if>
+			<if test="pwd!=null and sex!=''">
+			pwd=md5(#{pwd}),
+			</if>
+		</set>	
+			where mno=#{mno};
+
+	</update>
+	
+	
+</mapper>

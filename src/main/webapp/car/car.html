@@ -1,0 +1,528 @@
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>享购网</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="Cache" content="no-cache">
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/easyzoom.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css">
+    <!--<link href="../css/repair/bootstrap-reset.css" rel="stylesheet" type="text/css"/>-->
+    <link href="../css/car/cart.css" rel="stylesheet" type="text/css"/>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<style type="text/css">
+    dt{
+        font-weight: normal!important;
+        line-height: 1.5!important;
+    }
+</style>
+<body>
+<div class="container-fluid header">
+    <div class="top">
+        <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+             <div class="top-right fr">
+             <a href="../login/login.html" class="top-login" onclick="login()">登录</a>
+             <a href="../userInfo/user-info1.html" class="top-user"></a>
+             <a href="javascript:void(0)" id="top-exit" onclick="exit()" style="display: none;">退出</a>
+            <a href="../login/register.html" id="top-register" class="top-register">注册</a>
+        
+            
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+          
+        
+          
+            
+            <!-- <a href="https://www.kuaidi100.com/openapi/applyapi.shtml?free=free" class="top-cart">快递查询</a> -->
+        </div>
+    </div>
+</div>
+
+<div class="search-wrapper ofh">
+    <a  ><img src="../images/logo-center.png"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<div class="container-fluid section" >
+    <div class="section-wrapper" id="showProduct">
+        <div id="cart-null"class="cart-null tac" style="display:none;">
+            <img src="../images/cart-null.jpg" alt=""/><br>
+            <a href="../index.html" class="btn btn-default">立即前往</a>
+        </div>
+        <div class="product-wrapper cb" >
+            <h3>全部商品</h3>
+            <table class="table tac">
+                <thead class="thead">
+                <tr>
+                    <td>
+                        <label>
+                            <input type="checkbox" class="check-all" v-model='checked'>全选
+                        </label>
+                    </td>
+                    <td>商品</td>
+                    <td>单价(元)</td>
+                    <td>数量</td>
+                    <td>小计(元)</td>
+                    <td>优惠</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody class="tbody"><!-- 开始********************************** -->
+                <tr v-for="(car,index) in cars" :key="index">
+        <td>
+            <input class="chk" type="checkbox" :value="car" v-model='selected'>
+        </td>
+        <td align="left">
+            <img class="product-img fl" :src="car.spare">
+            <div class="product-zibox fl">
+                <a href="javascript:void(0);" @click="goProduct(car.gno)"  class="product-desc cart-list-link">{{car.gname}}</a>
+                <p>商品编号：{{car.gno}}</p>
+            </div>
+        </td>
+        <td>
+            <span class="product-price">¥ <span class="product-price-num">{{car.price}}</span></span>
+        </td>
+        <td>
+            <a class="btn-plus btn-plus-reduce" @click="decre(car)">-</a>
+            <input id="count" class="product-count tac" type="text" onkeydown="onlyNum();" v-model='car.num'>
+            <a class="btn-plus btn-plus-add" @click="incre(car)">+</a>
+        </td>
+        <td>
+            {{car.price*car.num}}  
+        </td>
+        <td>
+            ——
+        </td>
+        <td>
+            <a href="javascript:void(0)" class="product-del" @click="productDel(index)">删除</a>
+        </td>
+    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pay-wrapper tar">
+            <div id="btn-submit" class="tac" @click="Tosubmit()">
+                去结算
+            </div>
+            <div class="price-wrapper">
+      
+        已选择<span id="total-price">{{total}}</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+                应付总额：
+                <span id="total-price">¥ {{totalPrice}}</span>
+            </div>
+        </div>
+    </div>
+</div><!-- 结束************************************************-->
+<div class="ifooter">
+    <div class="pwm serivcelist clearfix">
+      
+
+        <p class="paylogo" style="margin-top:0px;"></p>
+    </div>
+    <div style="width:300px;margin:0 auto; padding:0px 0 20px 0;">
+        
+           
+              <img  src="../images/logo-center.png">
+
+            <p style="float:left;height:20px;line-height:20px;margin-left:85px;margin-top:10px; color:#939393;">乐购.快乐的购物</p></a>
+    </div>
+</div>
+<!--点击删除-->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="pre-modalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span class="modal-title" id="pre-modalLabel">移除商品</span>
+            </div>
+            <div class="modal-body" style="padding-left:20px;" align="center">
+                <div class="row">
+                    <img src="../images/sigh.png" alt=""/>
+                    <h4>您确定要将此商品从购物车移除吗？</h4>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-default confirm-btn">确定</button>
+                    <button type="button" class="btn btn-default cancel-btn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/common/jquery.min.js"></script>
+<script src="../js/common/bootstrap.min.js"></script>
+<script src="../js/common/vue.js"></script>
+<script src="../js/common/artTemplate.js"></script>
+<script src="../js/common/url.js"></script>
+<script src="../js/common/car.js"></script>
+<script src="../js/common/dialog.js"></script>
+<script type="text/javascript">
+let flag=false;
+    $(function(){
+    	
+        askNav();
+       //var info=oreder.getItem("orderItem");
+       //console.log(info);
+       
+        checkLogin();
+        
+    });
+    
+  
+    
+    //Vue
+    const test=new Vue({
+   	el:"#showProduct",
+   	
+   	data:{
+   		cars:[],
+   		count:1,
+   		checked:true,
+   		selected:[]
+   		
+   		
+   	},
+   	watch:{
+   		checked(newVal){
+   			if(newVal){
+   				this.selected=this.cars;
+   			}else{
+   				this.selected=[];
+   			}
+   		}
+   	},
+  computed:{
+	total(){
+		if(this.selected!=null){
+			
+			return this.selected.reduce((c1,c2)=>c1+c2.num,0);
+		}
+		
+		return 0
+	},
+	totalPrice(){
+		if(this.selected!=null){
+			return this.selected.reduce((c1,c2)=>c1+c2.num*c2.price,0);
+		}
+		return 0;
+	}
+  },
+   	methods:{
+   		goProduct(gno){
+   			//console.log(gno);
+   			window.location.href="../products/product-detail.html?gno="+gno;
+   		},
+   		incre(car){
+   			car.num++;
+   			//console.log(flag);
+   			//flag==true,就说明登陆了
+   			if(flag){
+   				$.post("../orderItem/UpdateOrderItem",{num:car.num,gno:car.gno},function(data){
+   					//console.log(data);
+   				},'text');
+   				
+   				
+   				
+   			}else{
+   				oreder.setItem("orderItem",this.cars);
+   			}
+   			
+   			
+   		},
+   		decre(car){
+   			if(car.num>1){
+   				
+   				car.num--;
+				if(flag){
+					$.post("../orderItem/UpdateOrderItem",{num:car.num,gno:car.gno},function(data){
+	   					//console.log(data);
+	   				},'text');
+   	   			}else{
+   	   			oreder.setItem("orderItem",this.cars);
+   	   			}
+   			}
+   			
+   		},
+   		productDel(index){
+   			if(flag){
+   				//console.log(this.cars[index]);
+   			
+   				$.ajax({
+
+   				    type: "POST",
+   				    contentType: 'application/json; charset=UTF-8',
+   				    dataType: "json",
+   				    url: "../orderItem/delOrderItem",
+   				 	
+   				    data: JSON.stringify(this.cars[index]), 
+   				    async:false,
+   				    success: function (data) {
+   						//console.log(data);
+   						if(data==1){
+   							
+   						 location.reload(true);
+   						}else{
+   							alter("删除失败!!");
+   						}
+   						
+   				    }
+   				});
+   			
+   			
+   			
+   			
+   			
+   			}else{
+   				this.cars.splice(index,1);
+   				oreder.setItem("orderItem",this.cars);
+   			}
+   		},
+   		Tosubmit(){
+   			//结算
+   			console.log(this.selected);
+   			 oreder.setItem('order',this.selected);
+   			 //console.log( oreder.getItem('order'));
+   		window.location.href="../order/buyNow.html";
+   		}
+   		
+   	},
+   	created(){
+   		
+   	$.ajax({
+   		url:'../member/checkLogin',
+   		type:"post",
+   		async:false,
+   		success:function(data){
+   			if(data!=null &&data!=''){
+   			   flag=true;  			  
+   		   }   		
+   		}   	
+   		});
+   		//console.log(flag);
+   		//登录状态下进行商品的汇总
+   		if(flag){
+   			that=this;
+   			this.cars=oreder.getItem("orderItem");
+   			console.log(this.cars);
+   			//本地缓存不为空,汇总
+   			if(this.cars!=null){
+   				 		console.log("111");	
+   				$.ajax({
+
+   				    type: "POST",
+   				    contentType: 'application/json; charset=UTF-8',
+   				    dataType: "json",
+   				    url: "../orderItem/findByMon",
+   				 	
+   				    data: JSON.stringify(this.cars), 
+   				    async:false,
+   				    success: function (data) {
+   						console.log(data);
+   						that.cars=data;
+   	   			   		that.selected=data;
+   	   			  		oreder.del("orderItem");
+   				    }
+   				});
+   				
+   				
+   				
+   				
+   				
+   			}else{
+   				console.log("222");
+   				//本地缓存为空,不用汇总
+   				$.post('../orderItem/showByMno',function(data){
+   			   			console.log(data);
+   			   			that.cars=data;
+   			   		that.selected=data;
+   			   		},'json');
+   			   		
+   			}
+   		
+   			//console.log(that.cars);
+   		
+   		}else{//用户未登录
+   			console.log("333");
+   		 this.cars=oreder.getItem("orderItem");
+ 		this.selected=this.cars;
+   		}
+   		
+   		
+   	}
+    });
+    
+    
+    
+    //跳到登录页面
+    function login(){
+    	let href=window.location.href;
+    	
+		   localStorage.setItem("href", href);
+		   window.location.href="../login/login.html";
+    }
+
+  //验证登录
+    function checkLogin(){
+     	
+     	//alert(href);
+ 	  
+ 	   $.post('../member/checkLogin',function(data){
+ 		   //console.log(data);
+ 		   //console.log(localStorage.getItem("href"));
+ 		   
+ 		   if(data!=null &&data!=''){
+ 			 flag=true;
+ 			 //  $('.top-login').text('');
+ 			 $('.top-user').text(data.nickname);
+ 			// $('.top-login').attr("href","../userInfo/user-info1.html");
+ 			    $('.top-login').css('display','none');
+ 			   $('.top-user').css('display','inline');
+ 			  $('#top-exit').css('display','inline');
+ 			 $('.top-register').css('display','none');
+ 			
+ 			
+ 			
+ 		   }else{
+ 			 
+ 	  		 $('.top-register').css('display','inline');
+ 	  		
+ 		   }
+ 		  
+ 	   });
+ 	   
+     }
+     
+     //登录后退出
+     function exit(){
+    	 
+     	$.post('../member/quit',function(data){
+  		   console.log(data);
+  		  if(data==1){
+  			//checkLogin();
+  			// $('.top-login').text("登录");
+  			// let show=document.getElementById("top-exit");
+			   //show.style.display = "none";
+			   //flag=false;
+			   //刷新该页面
+			   location.reload(true);
+  		  }
+  		  
+  	   });
+     }
+     
+    //结算
+   // $('#btn-submit').click(function(){
+    	//window.location.href="../order/buyNow.html";
+    //});
+    	
+    
+    
+    
+
+    // 加载导航
+    function askNav() {
+        $.ajax({
+            type:"GET",
+            url: "../type/findAll",
+            dataType:"json",
+            success: function (data) {
+            	//console.log(data);
+                var askData;
+                var navHtml = '<li><a href="../index.html">首页</a></li>';
+                for (var i = 0; i < data.length; i++) {
+                    
+                        navHtml += '<li>'+
+                            '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                            '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                               
+                                for (var j = 0; j < data[i].typeItem.length; j++) {
+                                	//console.log(data[i].typeItem[j].tname);
+                                	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                                	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                                	
+                                }
+                               // console.log(navHtml);
+                                navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                               
+                                //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                            
+                       
+                    
+                        //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                                
+                }
+              //  console.log(navHtml);
+                $('.navTop ul').html(navHtml);
+             
+            }
+        });
+    }
+//    
+    //    搜索
+    $(".search-btn").on("click",function(){
+        searchKey();
+    });
+    function searchKey(){
+        sessionStorage.removeItem("typePath");
+        sessionStorage.removeItem("typeName");
+        var keyWord = $.trim($(".search-input").val());
+        if (keyWord==null || keyWord.length <=0) {
+            dialogModule.iTips("请输入搜索的关键字");
+            return false;
+        }else{
+          
+            window.location.href = "../products/product-all.html";
+        }
+    }
+    function searchKeyDown(event){
+        if (event.keyCode == 13) {
+            event.returnValue = false;
+            event.cancel = true;
+            searchKey();
+        }
+    }
+    $('.navTop').on('click', '#tno', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+        $('.navTop').on('click', '#tino', function(){
+            if ($(this).data('num')) {
+                window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+                //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+            }
+        });
+    $('.tuangou').hover(function(){
+        $('.together-bottom').hide();
+        $('.together-top').show();
+        $('.leibie').show();
+    },function(){
+        $('.together-top').hide();
+        $('.together-bottom').show();
+        $('.leibie').hide();
+    });
+
+</script>
+</body>
+</html>

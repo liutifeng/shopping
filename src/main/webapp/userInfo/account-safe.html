@@ -1,0 +1,235 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Best Store</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/member.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/AboutUs.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/orderShow.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css~time=.css" +timestamp rel="stylesheet" type="text/css"/>
+    <link href="../css/common/pagination.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css"/>
+    <script src="../assets/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+<div class="header">
+    <div class="top">
+        <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+        <div class="top-right fr">
+            
+            <a href="javascript:void(0)" class="top-exit" onclick="exit()">退出</a>
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+            
+        </div>
+    </div>
+</div>
+<div class="search-wrapper ofh">
+     <a href="../index.html"><img src="../images/logo-t.png" class="logo-left"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<!-- 类目详细部分 结束 -->
+<div class="body">
+    <div class="csw_BoxH csw_width">
+        <div class="cswX_hyL csw_left">
+            <div class="personalDetails">
+                <img src="../assets/images/def_icon1.jpg" alt="" height="83px" width="83px"/>
+                <p>177****9296</p>
+            </div>
+            <div style="width: 168px;height: 1px;margin: 0 auto;padding: 0;background-color: #f5f5f5;overflow: hidden;"></div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="jygl1" class="csw_tb43" onclick="javascript:closeMenu('jygl')">
+                    <input type="button" id="jygl2" class="csw_tb42" onclick="javascript:openMenu('jygl')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>订单和购买</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="jygl3">
+                <ul>
+                    <li>
+                        <a href="../order/order-list.html">查看订单</a>
+                    </li>
+                    <li>
+                        <a href="address.html">收货地址簿</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="hyfk1" class="csw_tb43" onclick="javascript:closeMenu('hyfk')">
+                    <input type="button" id="hyfk2" class="csw_tb42" onclick="javascript:openMenu('hyfk')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>我的账户</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="hyfk3">
+                <ul>
+                    <li class="current">
+                        <a class='a_hover' href="#">账号安全</a>
+                    </li>
+                    <li>
+                        <a href="user-info1.html">修改个人资料</a>
+                    </li>
+                   
+                </ul>
+            </div>
+            <div class="xg_user_ad"></div>
+        </div>
+        <div class="cswX_hyR csw_right">
+            <div class="xg_zlxg xg_wdjf">
+                <h3 style="height: 33px;;border-bottom: solid 1px #68B3AE;width:100%;margin-bottom:10px;">账号安全</h3>
+            </div>
+            <div class="mb_md5" id="safe_area1">
+                <div class="cswX_hyR csw_right">
+        <div class="safety1_1">
+            <ul>
+                <li class="safety1_on">身份验证</li>
+                <li>修改登录密码</li>
+                <li>完成</li>
+            </ul>
+        </div>
+        <form id="modifyPassSetp1Form" method="post" >
+            <input type="hidden" name="destination" value="1"/>
+            <table cellpadding="0" cellspacing="0" border="0" class="isgo-login-table">
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td align="right">&nbsp;输入旧密码<span style="color: red;">*</span>：</td>
+                    <td>
+                        <input id="pwd" name="password" type="password" class="isgo-login-text" placeholder="请输入旧密码"/>
+                        <div class="error-info">
+                            <span class="field-validation-valid pwd-error" style="color:red;"></span>
+                        </div>
+                    </td>
+                </tr>
+             
+                <tr>
+                    <td></td>
+                    <td class="td_zhi">
+                        <input type="button" class="input1" value="提 交" id="submit" onclick="spwd()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/common/jquery-1.10.2.min.js"></script>
+<script src="../js/common/jquery-cookie.js"></script>
+<script src="../js/common/dialog.js"></script>
+<script src="../js/common/url.js"></script>
+<script src="../js/common/jQuery.md5.js"></script>
+<script>
+
+$(function(){
+	askNav();
+});
+// 加载导航
+function askNav() {
+    $.ajax({
+        type:"GET",
+        url: "../type/findAll",
+        dataType:"json",
+        success: function (data) {
+        	//console.log(data);
+            var askData;
+            var navHtml = '<li><a href="../index.html">首页</a></li>';
+            for (var i = 0; i < data.length; i++) {
+                
+                    navHtml += '<li>'+
+                        '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                        '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                           
+                            for (var j = 0; j < data[i].typeItem.length; j++) {
+                            	//console.log(data[i].typeItem[j].tname);
+                            	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                            	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                            	
+                            }
+                           // console.log(navHtml);
+                            navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                           
+                            //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                        
+                   
+                
+                    //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                            
+            }
+          //  console.log(navHtml);
+            $('.navTop ul').html(navHtml);
+         
+        }
+    });
+}
+
+function spwd(){
+	//alert("111");
+    var pwd=$("#pwd").val();
+
+    $.post('../member/findByMno',{pwd:pwd},function(data){
+    	console.log(data);
+    	//alert(pwd);
+    	
+    	if(data==1){
+    		window.location.href = "../userInfo/step2.html";
+    		
+    	}else{
+    		alert("请重新输入您的密码");
+    	}
+    	
+    	
+    },'json');
+}
+
+
+$('.navTop').on('click', '#tno', function(){
+    if ($(this).data('num')) {
+        window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+        //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+    }
+});
+    $('.navTop').on('click', '#tino', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,655 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>享购网</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link href="../css/common/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/member.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css">
+    <script src="../js/common/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/js/common/ajaxObject.js"></script>
+    <script type="text/javascript" src="../assets/js/common/jquery.form.js"></script>
+    <script type="text/javascript" src="../assets/js/common/pub.js"></script>
+    <script type="text/javascript" src="../assets/js/common/check.js"></script>
+    <script type="text/javascript" src="../assets/js/orderadd.js"></script>
+    <script type="text/javascript" src="../js/order2/order-shop.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=dcY7wR9CXFOZSqu7oOgMl7zWKDlNGEq7"></script>
+    <style>
+        input {
+            padding-left: 5px;
+        }
+        u{
+            display:block;
+        }
+        input[type=number]{
+            width:100px!important;
+        }
+        #presentcard{
+            width:115%;
+        }
+        #gift_start {
+            display: none;
+        }
+        input::-webkit-input-placeholder {
+            /* placeholder字体大小  */
+            font-size: 12px;
+        }
+        .cswX_inputBg {
+            font:12px/1.5 tahoma,arial,sans-serif;
+        }
+       
+.active {
+  /* background: #eee; */
+  color: #1e82d2;
+  font-weight: bolder;
+}
+.backImg{
+background-image:url("../images/alipay.gif");
+}
+    </style>
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+<div class="header">
+    <div class="top">
+        <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+             <div class="top-right fr">
+            <a href="../login/login.html" class="top-login">登录</a>
+             <a href="javascript:void(0)" id="top-exit" onclick="exit()" style="display: none;">退出</a>
+            <a href="../login/register.html" id="top-register" class="top-register">注册</a>
+            <a href="../userInfo/user-info1.html" class="top-user"></a>
+            
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+          
+        
+          
+            
+            <!-- <a href="https://www.kuaidi100.com/openapi/applyapi.shtml?free=free" class="top-cart">快递查询</a> -->
+        </div>
+    </div>
+</div>
+<div class="search-wrapper ofh">
+     <a href="../index.html"><img src="../images/logo-t.png" class="logo-left"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<div class="shopping_box" id="showProduct" >
+    <!--头部-->
+    <div class="proce_main">
+        <h2>填写并核对订单信息</h2>
+        <div class="prove_main shopping_main"  >
+            <!--2支付方式开始-->
+            <div class="payWays " id="pay" ><h3>配送方式</h3>
+                
+                <input type="button" class="pay1  current  " value="支付宝" >
+            </div>
+             
+            
+            <!--2支付方式结束-->
+            <!--1收货开始-->
+            <div class="proce_main1">
+                <h3>收货人信息</h3>
+                <div class="proce_main1_left" id="address">
+                    <div class="proce_main1_1 defaultAdd" style="display: block;">
+    
+    <div class="otherAddress"  v-for="(addr,index) in addrs" :key="index">
+        
+        <div class="defaultAddressMessage" :class="{active:index==curent}" @click="curent=index">
+            <p>{{addr.name}}（收）</p>
+            <p>
+              {{addr.province}}  {{addr.city}}  {{addr.area}}  {{addr.addr}}  
+            </p>
+            <p></p>
+            <p>{{addr.tel}}</p>
+        </div>
+        <div class="lowertriangular">
+            <img src="../assets/images/lowertriangular.png" alt="" style="display:inline;">
+        </div>
+    </div>
+    
+    
+    
+    </div>
+                    <!--添加新地址-->
+                    <div id="addAddressBtn" style="clear:both;margin-left:47px;margin-top:10px;">
+                        <div class="radiochecked addAddress">
+                            <img src="../assets/images/order/join-png_07.png">
+
+                            <div class="wenzi">&nbsp;&nbsp;添加新地址</div>
+                        </div>
+                    </div>
+                    <!--添加新地址-->
+                    <div id="addAddress" style="display:none">
+                        <form id="addAddressForm" method="POST" action="/order/addressSave" style="display: block;">
+                            <div class="proce_table">
+                                <table cellpadding="0" cellspacing="1" border="0">
+                                    <tbody>
+                                    <input type="hidden" name="userInfoId" value="">
+                                    <tr>
+                                        <td width="13%" class="td_zi">收货人姓名<span>*</span></td>
+                                        <td width="87%" class="td_zhi">
+                                            <input type="text" name="PersonName" id="PersonName"
+                                                    style="width:150px;" class="cswX_inputBg"
+                                                                              maxlength="10" placeholder="请输入姓名">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_zi">所在地区<span>*</span></td>
+                                        <td class="td_zhi">
+                                            <div id="systemareadiv" style="float:left;margin-right:5px;">
+                                                <input name="ProvinceName" id="ProvinceName" class="input100" placeholder="请输入省份">&nbsp;
+                                                   
+                                                
+                                                <input name="CityName" id="CityName" class="input100" placeholder="请输入城市">
+                                                   
+                                              
+                                                <input name="CountyName" id="CountyName" class="input100" placeholder="请输入区/县"> &nbsp;
+                                                
+                                                   
+                                               
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_zi">街道地址<span>*</span></td>
+                                        <td class="td_zhi">
+                                        <textarea name="DetailAddress" id="DetailAddress" cols="65" rows="20" maxlength="60"
+                                                  style="height:80px;resize:none;height:73px;border:solid 1px #ddd;padding-left:5px;"
+                                                  placeholder="请输入街道地址"></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_zi">邮政编码<span></span></td>
+                                        <td class="td_zhi"><input type="text" name="PostCode" id="PostCode" value="" maxlength="6"
+                                                                  style="width:150px;" class="cswX_inputBg" placeholder="请输入邮政编码"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_zi">手机号码<span>*</span></td>
+                                        <td class="td_zhi">
+                                            <input type="text" name="CellPhone" id="CellPhone" value="" maxlength="11"
+                                                   onblur="this.className='cswX_inputBg'"
+                                                   style="width:150px;ime-mode:disabled;" class="cswX_inputBg"placeholder="请输入手机号码">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_zi"></td>
+                                        <td class="td_zhi">
+                                            <input type="checkbox" style="cursor:auto;" id="IsDefault"
+                                                   checked="checked">
+                                            添加为默认收件地址
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td_zi"></td>
+                                        <td class="td_zhi">
+                                            <input type="button"
+                                                   onclick="if(checkAddressForm()){addressBtn();}"
+                                                   class="input1" value="保存收货地址">
+                                            <input type="button" onclick="cancelAddress();" class="input3"
+                                                   value="取消">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 1160px;height: 1px;margin: 0 auto;padding: 0;overflow: hidden; border-bottom: 1px #ccc solid; margin-top: -1px;"></div>
+            
+           
+            <!--4发票开始-->
+            <div id="orderAddInvoiceView_new" class="proce_main3">
+                <h3>发票信息<span class="color_1"></span></h3>
+                <p class="myP" id="fpP">
+                  
+                    <u style='float: left;'>普通发票(电子) 个人明细<strong id="IsAutoBill"></strong></u>
+                   
+                   
+                </p>
+                
+            </div>
+            <div style="width: 1160px;height: 1px;margin: 0 auto;padding: 0;overflow: hidden; border-bottom: 1px #ccc solid; margin-top: -1px;"></div>
+            <div class="proce_main2" style="position: relative;overflow: hidden;">
+                    <h3>
+                        <!--<span>-->
+                        <!--<a href="cart.html" class="color_1">回购物车修改</a>-->
+                        <!--</span>-->
+                        配送信息
+                    </h3>
+                   
+
+                    <div style='position:absolute;z-index: 999;right:0;top:126px;background-color: #fff;;height:100%; width:420px; border-left:1px solid #ddd;'>
+                        <div class="del_right del_right_first" style='margin-top:0 !important; border-top: none;'>
+                            <h4>此商品：由乐购网为您发货</h4>
+                            <span style='margin-right:30px;'>
+                            <b>配送方式：</b>
+                            <i>快递(收取运费 ￥10.00)</i>
+                            </span>
+                            <span>
+                            <b>配送时间：</b>
+                            <i><input name="sendTimeSelect" checked="" type="radio" style="cursor:auto;" value="0"> 只工作日送货</i>
+                            <i><input name="sendTimeSelect" type="radio" style="cursor:auto;" value="1">只双休日、假日送货</i>
+                            <i><input name="sendTimeSelect" type="radio" style="cursor:auto;" value="2">工作日、双休日与假日均可送货</i>
+                            </span>
+                        </div>
+                    </div>
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody id="prodContainer" style="font-size: 12px;">
+                        <!--这个地方需要用到模板功能template模板遍历-->
+                        <tr class="ordertrLine">
+                            <td width="787">
+                                <div class="order_line">
+                                    <div class="del_left del_left_first" style="border-bottom: none; width: 1188px!important;">
+                                        <div class="del_left_l_first">
+                                            <div class="del_left1 s_td2 del_left_l_first_s2" style="width: 210px;">商品名称</div>
+                                            <strong class="del_left_l_first_s3"
+                                                    style="display: block;float: left;width: 100px;text-align: center;font-weight: normal;margin-top: 10px;">单价</strong>
+                                            <strong class="del_left_l_first_s4"
+                                                    style="display: block;float: left;width: 100px;text-align: center;font-weight: normal;margin-top: 10px;">数量</strong>
+                                            <strong class="del_left_l_first_s5"
+                                                    style="display: block;float: left;width: 100px;text-align: center;font-weight: normal;margin-top: 10px;">总价</strong>
+                                        </div>
+                                    </div>
+                                   
+                                    <div>
+                                    </div>
+                                </div>
+                                <tr class="ordertrLine" v-for="(product,index) in products" :key="index">
+        <td width="787" style="position:relative">
+            <div class="order_line">
+                <div class="del_left" style="width: 1188px;;">
+                    <div style="height:100%;">
+                        <img align="absmiddle" :src="product.spare">
+                    </div>
+                    <div class="del_left_1" style="height:100%;">
+                        <div class="del_left1 s_td2" style="width: 250px;">
+                                <p>{{product.gname}}</p>
+                            <br>
+                            <!--<b style="clear:both;">ProdP2019042512153645942</b>-->
+                        </div>
+                        <strong style="width: 100px;">
+                            ￥{{product.price}}
+                        </strong>
+                        <strong style="width: 100px;">{{product.num}}</strong>
+                        <strong style="width: 100px;">
+                            ￥{{product.price*product.num}}
+                        </strong>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <div style="width: 1160px;height: 1px;margin: 0 auto;padding: 0;overflow: hidden; border-bottom: 1px #ccc solid; margin-top: -1px;"></div>
+          
+                <textarea  id="Message"  rows="3" style="width:96%;margin:20px;border: 1px solid #e5e5e5;" placeholder="请输入留言"></textarea>
+               </div>
+            <br>
+            <!--5结算信息开始-->
+            <div id="gift_start" style='display:block !important;'>
+                <div class="proce_main4">
+                    <h3>结算信息</h3>
+
+                    
+                       
+
+                    </div>
+                </div>
+                <div style="width: 1160px;height: 1px;margin: 0 auto;padding: 0;overflow: hidden; border-bottom: 1px #ccc solid; margin-top: -1px;"></div>
+                <div style="clear:both;"></div>
+            </div>
+            <!--3信息开始-->
+            <div style="width: 1160px;height: 1px;margin: 0 auto;padding: 0;overflow: hidden; border-bottom: 1px #ccc solid; margin-top: -1px;"></div>
+            <!--3信息结束-->
+            <div id="stat_pay">
+                <div class="proce_main5">
+                    <!--<h3><span class="main5_right">总计<a class="color_2">1</a>件商品</span></h3>-->
+                    <div class="proce_main5_1 proce_main5_right">
+                        <p><strong>总商品金额：</strong><span id="prodMoney" data-money="0">￥{{totalPrice}}</span></p>
+                        <p><strong>运费：</strong><span id="transMoney" data-money="0">￥10.00</span></p>
+                        <p style="display: none;"><strong>减免：</strong><span id="cutMoney" data-money="0" >-￥0.00 </span></p>
+                        <p><strong>应付金额：</strong><span id="shouldMoney" data-money="0">￥{{totalPrice+10}}</span></p>
+                        <div class="willdPay"><b>应付金额：</b><b class="color_2" id="shouldMoney2">￥{{totalPrice+10}}</b></div>
+                        <p><input class="submitOrder" id="sub" type="button" value="提交订单" @click="orderSubmit()"></p>
+                        <p><input class="submitOrder" id="wait"  style="background-color: #cecece;display: none" type="button" value="处理中..."></p>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+            <!--5结算信息结束-->
+        </div>
+    </div>
+</div>
+<div class="box" style="display: none; "></div>
+<div class="ifooter">
+          <div class="pwm serivcelist clearfix">
+      
+
+        <p class="paylogo" style="margin-top:0px;"></p>
+    </div>
+    <div style="width:300px;margin:0 auto; padding:0px 0 20px 0;">
+        
+           
+              <img  src="../images/logo-center.png">
+
+            <p style="float:left;height:20px;line-height:20px;margin-left:85px;margin-top:10px; color:#939393;">乐购.快乐的购物</p></a>
+    </div>
+     
+   </div>   
+
+
+
+
+
+
+</body>
+
+<script src="../js/common/vue.js"></script>
+<script src="../js/common/url.js"></script>
+<script src="../js/common/car.js"></script>
+<script type="text/javascript">
+
+   $(function(){
+	   askNav();
+	   checkLogin()
+	    
+    	});
+
+//检验商品,如果支付页面没有商品反回购物车
+   //function checkOrder(){
+	//let products=order.getItem('order');
+	//console.log(products);
+	//   if()
+   //}
+	   
+       
+   
+  
+   //Vue
+   const test=new Vue({
+   	el:"#showProduct",
+   	
+   	data:{
+   		
+   		addrs:[],
+   		istrue:0,
+   		products:[],
+   		curent:0,
+   		choice:0
+   		
+   	},
+   	
+ 
+   	methods:{
+   		orderSubmit(){
+   			that=this;
+   			$('#sub').css({'display': 'none'});
+   			$('#wait').css({'display': 'block'});
+   			//生成订单,将products中信息插入到order中
+   			let ano=this.addrs[this.curent].ano;
+   			let pname=$('.pay1').val();
+   			let price=parseFloat($('#shouldMoney').html().split("￥")[1]);
+   			let ono=(Math.random()*10000000).toString(16).substr(0,4)+''+(new Date()).getTime()+''+Math.random().toString().substr(2,5);
+   			
+   			//console.log(ono);
+   			$.post("../orderItem/addOrder",{ano:ano,pname:pname,price:price,ono:ono},function(data){
+   				//console.log(data);
+   				if(data==1){
+   					console.log(that.products);
+   					let cars=that.products;
+   					//console.log(cars);
+   					for(let i=0;i<cars.length;i++){
+   						cars[i].ono=ono;
+   					}
+   					//console.log(cars);
+   					$.ajax({
+
+   					    type: "POST",
+   					    contentType: 'application/json; charset=UTF-8',
+   					    dataType: "json",
+   					    url: "../orderItem/insertOrder",
+   					    
+   					 data: JSON.stringify(that.products), 
+    				    async:false,
+   					   
+   					    success: function (data) {
+   							//console.log(data);
+   							if(data!=0){
+   								//console.log(price+"price");
+   								//console.log(ono);
+   								//$.post("../ali/pay",{count:price,id:ono}{
+   								 let url = '../ali/pay?count='+price+'&id='+ono;
+   						        window.location.href = url;
+   									
+   								//);
+   								
+   							}else{
+   								alert("生成订单失败!");
+   								window.location.href="../car/car.html";
+   							}
+   							
+   					    }
+   					});
+   				}
+   				
+   			},'json');
+   			
+   			
+   			
+   			//console.log(pname);
+   		}
+   	},
+    computed:{
+    	total(){
+    		if(this.products!=null){
+    			
+    			return this.products.reduce((c1,c2)=>c1+c2.num,0);
+    		}
+    		
+    		return 0
+    	},
+    	totalPrice(){
+    		if(this.products!=null){
+    			return this.products.reduce((c1,c2)=>c1+c2.num*c2.price,0);
+    		}
+    		return 0;
+    	}
+      },
+   	created(){
+   		var that=this;
+   		$.post('../addr/findByMno',function(data){
+   			//console.log(data);
+   			that.addrs=data;
+   			//console.log(that.addrs.length);
+   		},'json');
+   		
+   		that.products=oreder.getItem("order");
+   		sessionStorage.removeItem("order");
+   		//console.log(that.products);
+   		//检验商品,如果支付页面没有商品反回购物车
+   		//console.log(this.products);
+   		if(this.products=='' || this.products==null){
+   			alert("商品丢失,即将前往购物车!");
+   			window.location.href="../car/car.html";
+   		}
+   	}
+    })
+    
+
+   
+   //跳到登录页面
+   function login(){
+   	let href=window.location.href;
+		   localStorage.setItem("href", href);
+		   window.location.href="../login/login.html";
+   }
+
+ //验证登录
+   function checkLogin(){
+    	
+    	//alert(href);
+	  
+	   $.post('../member/checkLogin',function(data){
+		   //console.log(data);
+		   //console.log(localStorage.getItem("href"));
+		   
+		   if(data!=null &&data!=''){
+			 flag=true;
+			 //  $('.top-login').text('');
+			 $('.top-login').text(data.nickname);
+			 $('.top-login').attr("href","../userInfo/user-info1.html");
+			   let show=document.getElementById("top-exit");
+			   show.style.display = "inline";
+			
+			 show=document.getElementById("top-register");
+ 			show.style.display = "none";
+			
+		   }else{
+			 window.location.href="../login/login.html";
+		   }
+		  
+	   });
+	   
+    }
+    
+    //登录后退出
+    function exit(){
+   	 
+    	$.post('../member/quit',function(data){
+ 		   console.log(data);
+ 		  if(data==1){
+ 			checkLogin();
+ 			 $('.top-login').text("登录");
+ 			 let show=document.getElementById("top-exit");
+			   show.style.display = "none";
+			   flag=false;
+ 		  }
+ 		  
+ 	   });
+    }
+   
+
+// 加载导航
+function askNav() {
+    $.ajax({
+        type:"GET",
+        url: "../type/findAll",
+        dataType:"json",
+        success: function (data) {
+        	//console.log(data);
+            var askData;
+            var navHtml = '<li><a href="../index.html">首页</a></li>';
+            for (var i = 0; i < data.length; i++) {
+                
+                    navHtml += '<li>'+
+                        '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                        '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                           
+                            for (var j = 0; j < data[i].typeItem.length; j++) {
+                            	//console.log(data[i].typeItem[j].tname);
+                            	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                            	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                            	
+                            }
+                           // console.log(navHtml);
+                            navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                           
+                            //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                        
+                   
+                
+                    //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                            
+            }
+          //  console.log(navHtml);
+            $('.navTop ul').html(navHtml);
+         
+        }
+    });
+}
+   
+$('.navTop').on('click', '#tno', function(){
+    if ($(this).data('num')) {
+        window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+        //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+    }
+});
+    $('.navTop').on('click', '#tino', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+    
+    
+    var yunsongType = 0;
+    $('#proce_main3_x').click(function () {
+        $('.myP').css({'display': 'none'});
+        $('.fapiao-1').css({'display': 'block'});
+    });
+    $('.fp_btn2').click(function () {
+        $('.myP').css({'display': 'block'});
+        $('.fapiao-1').css({'display': 'none'});
+        $("#remark").show();
+        $("#remark span").show();
+    });
+    //添加地址
+    $('.addAddress').click(function () {
+        $('.defaultAdd').css({'display': 'none'}); //默认地址 隐藏
+        $('#addAddress').css({'display': 'block'}); //添加地址 显示
+        $("#addAddressBtn").hide();
+        $("#addAddressForm").find(":input").each(function(){
+            if($(this).attr('type')!="button"){
+                $(this).val('');
+            }
+        });
+    });
+    //修改地址
+    $('.editAddress').click(function () {
+        $('.defaultAdd').css({'display': 'none'}); //默认地址 隐藏
+        $('#addAddress').css({'display': 'block'}); //添加地址 显示
+    });
+    //取消添加地址
+    function cancelAddress() {
+        $('.defaultAdd').css({'display': 'block'}); //默认地址 隐藏
+        $('#addAddress').css({'display': 'none'}); //添加地址 显示
+        $("#addAddressBtn").show();
+    }
+
+    
+   
+</script>
+</html>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  对应接口的全路径 -->
+<mapper namespace="com.yc.dao.OrderMapper">
+	<!-- public int addItem(OrderItemPO po);-->
+	<insert id="addItem" parameterType="OrderItemPO">
+	insert into orderiteminfo values(null,null,#{gno},#{gname},#{num},#{price},#{status},#{spare},#{reserve},null)
+	
+	</insert>
+	
+	 <!-- public int AddByTremForEach(List<OrderItemPO> list); -->
+     <insert id="AddByTremForEach"  >
+   insert into orderiteminfo values 
+   <foreach item="item" index="index" collection="list" separator="," >
+   (null,#{item.ono},#{item.gno},#{item.gname},#{item.num},#{item.price},#{item.status},#{item.spare},#{item.reserve},null)
+   
+   </foreach>
+ 
+   </insert>
+	
+	
+	
+	
+	
+	
+	
+	<!-- public List<OrderItemPO>findByItem(OrderItemPO po); -->
+	<select id="findByItem" parameterType="OrderItemPO" resultType="OrderItemPO">
+	select *from orderiteminfo where status=1
+	
+	<if test="gno!=null">
+	 and gno=#{gno}
+	</if>
+	<if test="oino!=null">
+	 and oino=#{oino}
+	</if>
+	<if test="ono!=null and ono!=''">
+	 and ono=#{ono}
+	</if>
+	<if test="reserve!=null">
+	 and reserve=#{reserve}
+	</if>
+	
+	</select>
+	
+	<!-- public OrderItemPO findSingleByItem(OrderItemPO po); -->
+	<select id="findSingleByItem"  resultType="OrderItemPO" parameterType="OrderItemPO">
+	select *from orderiteminfo where status=1  and reserve=#{reserve}
+	<if test="gno!=null">
+	 and gno=#{gno}
+	</if>
+	<if test="oino!=null">
+	 and oino=#{oino}
+	</if>
+	
+	</select>
+	
+	<!-- public List<OrderItemPO> findByReserve(Integer reserve); -->
+	<select id="findByReserve"  resultType="OrderItemPO">
+	select of.*,gf.gname from orderiteminfo of,goodsinfo gf where gf.gno=of.gno and of.status=1 and reserve=#{reserve}
+	
+	</select>
+	
+	
+	<!-- public int update(); -->
+	<update id="update" parameterType="OrderItemPO">
+	update orderiteminfo set num=#{num} where status=1 and  reserve=#{reserve} 
+	
+	
+	<if test="gno!=null">
+	 and gno=#{gno}
+	</if>
+	<if test="oino!=null">
+	 and oino=#{oino}
+	</if>
+	
+	</update>
+		<!-- public int delOrderItem(OrderItemPO po); -->
+		<delete id="delOrderItem">
+		delete from orderiteminfo where reserve=#{reserve} and status=1
+		
+		
+		<if test="gno!=null">
+	 	and gno=#{gno}
+	    </if>
+	<if test="oino!=null">
+		and oino=#{oino}
+	</if>
+		
+		
+		</delete>
+	<!-- public int addOrder(OrderPO po); -->
+	<insert id="addOrder">
+	insert into orderinfo values(#{ono},now(),#{ano},#{price},1,now(),#{rdate},#{pname},1,null,null,#{spare},#{reserve},#{mno});
+	</insert>
+	
+	
+	<!-- public int updateOrder(String ono); -->
+	<update id="updateOrder">
+	update orderinfo  set status=2 where ono=#{ono} 
+	
+	</update>
+	
+	
+	
+	<!-- public List<OrderVO>findOrder(OrderPO po); -->
+	<select id="findOrder" parameterType="OrderPO" resultMap="orderVO">
+	SELECT of.*,tf.price iprice,tf.spare pic,tf.num,tf.gname,tf.comments,tf.gno  
+	  from orderinfo of,orderiteminfo tf WHERE of.ono=tf.ono
+	  <if test="status!=null">
+		and of.status=#{status}
+	</if>
+	
+	</select>
+	
+	<resultMap type="com.yc.vo.OrderVO" id="orderVO">
+   <id column="ono"  property="ono" />
+ <result column="odate" property="odate"/>
+ <result column="ano" property="ano"/>
+ <result column="status" property="status"/>
+ <result column="price" property="price"/>
+ <result column="sdate" property="sdate"/>
+ <result column="pname" property="pname"/>
+ <result column="invoice" property="invoice"/>
+  <result column="cancelDate" property="cancelDate"/>
+   <result column="reason" property="reason"/>
+    <result column="spare" property="spare"/>
+     <result column="mno" property="mno"/>
+ 
+   
+ 
+ <!-- collection 嵌套结果集的封装规则
+ property="Item" 指定属性  ofType="OrderItemPO"
+  -->
+  
+   <collection property="Item" ofType="OrderItemPO">
+  <!-- 定义集合中元素的封装规则 -->
+  <id column="oino"  property="oino" />
+ <result column="gno" property="gno"/>
+ <result column="gname" property="gname"/>
+ <result column="num" property="num"/>
+ <result column="iprice" property="price"/>
+ <result column="pic" property="spare"/>
+ <result column="reserve" property="reserve"/>
+ <result column="comments" property="comments"/>
+ 
+   </collection>
+ 
+   </resultMap>
+   
+   
+   <!-- public int delOrder(String ono); -->
+   <delete id="delOrder">
+   
+   delete from orderinfo where ono=#{ono}
+   </delete>
+   
+   <!-- public int delItemByOno(String ono); -->
+   <delete id="delItemByOno">
+     delete from orderiteminfo where ono=#{ono}
+   
+   </delete>
+			
+   
+</mapper>

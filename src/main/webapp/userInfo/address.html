@@ -1,0 +1,332 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Best Store</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link href="../css/common/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/member.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/AboutUs.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/orderShow.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/pagination.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .cswX_hyzl{
+            width:auto;
+        }
+        .cswX_hyzl input[type=text],.cswX_hyzl select{
+            border:1px solid #ccc;
+            padding:6px;
+        }
+        .cswX_hyzl select{
+            width:110px;
+            margin-right:10px;
+        }
+        .cswX_wlgs_sz th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+<div class="header">
+    <div class="top">
+        <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+        <div class="top-right fr">
+            
+            <a href="javascript:void(0)" class="top-exit" onclick="exit()">退出</a>
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+            
+        </div>
+    </div>
+</div>
+<div class="search-wrapper ofh">
+    <a href="../index.html"><img src="../images/logo-left.png" class="logo-left"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<div class="body">
+    <div class="csw_BoxH csw_width">
+        <div class="cswX_hyL csw_left">
+            <div style="width: 168px;height: 1px;margin: 0 auto;padding: 0;background-color: #f5f5f5;overflow: hidden;"></div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="jygl1" class="csw_tb43" onclick="javascript:closeMenu('jygl')">
+                    <input type="button" id="jygl2" class="csw_tb42" onclick="javascript:openMenu('jygl')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>订单和购买</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="jygl3">
+                <ul>
+                    <li>
+                        <a href="../order/order-list.html">查看订单</a>
+                    </li>
+                    <li class="current">
+                        <a href="address.html">收货地址簿</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="hyfk1" class="csw_tb43" onclick="javascript:closeMenu('hyfk')">
+                    <input type="button" id="hyfk2" class="csw_tb42" onclick="javascript:openMenu('hyfk')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>我的账户</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="hyfk3">
+                <ul>
+                    <li>
+                        <a href="account-safe.html">账号安全</a>
+                    </li>
+                    <li>
+                        <a href="user-info1.html">修改个人资料</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="cswX_hyR csw_right">
+        
+        
+        
+            <!--添加数据-->
+            <form name="userInfoForm">
+                <div class="cswX_wlxxBox">
+                  
+                        <div id="myAddress" >
+                        <div class="xg_lbBt xg_lbBt_zs">
+                        <ul>
+                            <li class="cur_xz"><span style=" padding:0 15px ;">添加地址 </span></li>
+                        </ul>
+                    </div>
+                        <table class="cswX_hyzl">
+                            <tr>
+                                <td class="title">
+                                    收货人<span class="req">*</span>：
+                                </td>
+                                <td class="field">
+                                    <input id="ReceiverName" name="PersonName" type="text" placeholder="请输入收货人" />
+                                    <span class="field-validation-valid"></span>
+                                </td>
+                            </tr>
+                            <tr id="AddressProvince">
+                                <td class="title">
+                                    所在省份<span class="req">*</span>：
+                                </td>
+                                <td class="field">
+                                   <input id="ProvinceName" name="Province" type="text" placeholder="请输入省份" />
+									<span class="field-validation-valid"></span>
+								</td>
+							</tr>
+							<tr id="AddressCity">
+                                <td class="title">
+                                    所在城市<span class="req">*</span>：
+                                </td>
+                                <td class="field">
+                                   <input id="CityName" name="City" type="text" placeholder="请输入城市" />
+									<span class="field-validation-valid"></span>
+								</td>
+							</tr>
+							<tr id="AddressArea">
+                                <td class="title">
+                                    所在区县<span class="req">*</span>：
+                                </td>
+                                <td class="field">
+                                   <input id="AreaName" name="Area" type="text" placeholder="请输入区县" />
+									<span class="field-validation-valid"></span>
+								</td>
+							</tr>
+
+                            <tr>
+                                <td class="title">
+                                   手机号码<span class="req">*</span> ：
+                                </td>
+                                <td class="field">
+                                    <input id="CellPhone" name="Phone" type="text" placeholder="请输入手机号码"/>
+                                </td>
+                            </tr>
+                            <tr id="addressdetail">
+                                <td class="title">
+                                    详细地址<span class="req">*</span> ：
+                                </td>
+                                <td class="field">
+                                    <input id="DetailAddress" name="Address" type="text" style="width:341px;" placeholder="请输入详细地址" />
+                                    <span class="field-validation-valid"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td class="field td_zhi">
+                                    <div>
+                                        <input type="button" class="input1 address-btn" value="保存收货地址" onclick="addAddr()">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="xg_lbBt xg_lbBt_zs">
+                        <ul>
+                            <li class="cur_xz"><span style=" padding:0 15px ;">已保存地址</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+
+            <!--列表数据-->
+            <div class="cswXBorder">
+                <table cellpadding="0" cellspacing="0" border="0" class="cswX_wlgs_sz">
+                    <thead>
+                    <tr class="trBorder">
+                        <th width="10%">收货人</th>
+                        <th>所在地区</th>
+                        <th>收货地址</th>
+                        <th width="13%">手机号码</th>
+                        <th width="20%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="addressList-tbody" id="addressList-tbody">
+                    </tbody>
+                </table>
+                <div class="tac data-null" style="padding:5px 0;display:none">暂无地址记录</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/common/jquery-1.10.2.min.js"></script>
+
+<script src="../js/common/artTemplate.js"></script>
+<script src="../js/common/bootstrap.min.js"></script>
+<script src="../js/common/url.js"></script>
+<script src="../js/common/dialog.js"></script>
+<script type="text/javascript">
+$(function(){
+	findByMno();
+	askNav();
+});
+
+
+// 加载导航
+function askNav() {
+    $.ajax({
+        type:"GET",
+        url: "../type/findAll",
+        dataType:"json",
+        success: function (data) {
+        	//console.log(data);
+            var askData;
+            var navHtml = '<li><a href="../index.html">首页</a></li>';
+            for (var i = 0; i < data.length; i++) {
+                
+                    navHtml += '<li>'+
+                        '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                        '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                           
+                            for (var j = 0; j < data[i].typeItem.length; j++) {
+                            	//console.log(data[i].typeItem[j].tname);
+                            	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                            	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                            	
+                            }
+                           // console.log(navHtml);
+                            navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                           
+                            //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                        
+                   
+                
+                    //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                            
+            }
+          //  console.log(navHtml);
+            $('.navTop ul').html(navHtml);
+         
+        }
+    });
+}
+
+
+function findByMno(){
+	//alert("111");
+	str="";
+	$.post('../addr/findByMno',null,function(data){
+		console.log(data);
+		
+			for(var i=0;i<data.length;i++){
+				str+='<tr><td>'+data[i].name+'</td>'
+					+'<td>'+data[i].province+data[i].city+data[i].area+'</td>'
+					+'<td>'+data[i].addr+'</td>'
+					+'<td>'+data[i].tel+'</td></tr>';
+			}		
+		//alert(str);	
+
+		$('#addressList-tbody').html('').append(str);
+	},'json');
+}
+
+
+function addAddr(){
+	//alert("2");
+	var name=$("#ReceiverName").val();
+	var tel=$("#CellPhone").val();
+	var province=$("#ProvinceName").val();
+	var city=$("#CityName").val();
+	var area=$("#AreaName").val();
+	var addr=$("#DetailAddress").val();
+	
+	
+	 $.post('../addr/addAddr',{name:name,tel:tel,province:province,city:city,area:area,addr:addr},function(data){
+		 if(data==1){
+	    		console.log(data);
+	    		alert('添加成功！');
+	    	}
+	    	
+	    	
+	    },'json');
+	
+}
+
+$('.navTop').on('click', '#tno', function(){
+    if ($(this).data('num')) {
+        window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+        //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+    }
+});
+    $('.navTop').on('click', '#tino', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+</script>
+</body>
+</html>

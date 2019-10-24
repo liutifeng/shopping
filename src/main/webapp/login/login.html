@@ -1,0 +1,161 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>享购网</title>
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/login/login.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="../assets/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../assets/js/common/jquery.validate.js"></script>
+    <script type="text/javascript" src="../assets/js/common/messages_cn.js" charset="utf-8"></script>
+    <script language="javascript" src="../assets/js/common/check.js"></script>
+</head>
+<body class="news_logo">
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+
+<div class="logo_sign">
+    <div class="logo_banner"><a href="../index.html"><img src="../assets/images/logo.png"/></a></div>
+    <div class="logo_main">
+        <div class="isgo-login-l">
+            <h3>欢迎登录</h3>
+            <form id="loginForm" method="post" action="/login">
+                <table class="isgo-login-table" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="span1">账号<span style="color: red;">*</span>：</div>
+                        </td>
+                        <td>
+                            <input  tabindex="0" type="text"
+                                   class="isgo-login-text isgo-login-inputText" name="tel" id="email" placeholder="请输入账号">
+                            <div class="error-info">
+                                <span class="field-validation-valid email-error" style="color:red;"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="span1">密码<span style="color: red;">*</span>：</div>
+                        </td>
+                        <td>
+                            <input type="password" name="pwd" maxlength="20"  value=""
+                                   class="isgo-login-text isgo-login-inputText"
+                                    id="password" placeholder="请输入密码">
+                            <div class="error-info">
+                                <span class="field-validation-valid password-error" style="color:red;"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td>
+                            <li class="fuwu">
+                                <!--<input tabindex="0" type="checkbox" id="rememberId" name="autoLogin" value=""-->
+                                       <!--class="r_checkbox" checked="checked"/>-->
+                                <!--<em onclick="isRemember('rememberId');" style="cursor:pointer;color:#666666">自动登录</em>-->
+                                <a tabindex="0" style="margin-left:8px" href="step1.html">忘记密码？</a>
+                            </li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"></td>
+                        <td><input tabindex="0" type="button" style="cursor:pointer;" class="isgo-login-bt"
+                                   value="登&nbsp;&nbsp;&nbsp;&nbsp;录" onclick="submitLoginForm();"
+                                   id="loginFormSubmit"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="isgo-login-r">
+            <div class="login-r-top">
+                <a href="#">
+                    <img src="../assets/images/er.jpg">
+                </a>
+                <h4>微信关注&nbsp;“ISGO生活家”</h4>
+                <p>查订单 查物流 乐享缤纷活动</p>
+                <p>还不是享购会员？</p>
+                <strong>
+                    <a href="register.html" class="loginButton">免费注册</a>
+                </strong>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/common/jquery-1.10.2.min.js"></script>
+<script src="../js/common/jquery-cookie.js"></script>
+<script src="../js/common/jQuery.md5.js"></script>
+
+
+<script src="../js/common/dialog.js"></script>
+<script type="text/javascript">
+    $(function(){
+
+    	
+    });
+    $("#password").on("focus",function(){
+        $(this).attr("type","password");
+    });
+    //点击登录事件
+    var tel,pwd;
+    var href=localStorage.getItem("href");
+   // console.log(href);
+    function submitLoginForm(){
+    	tel = escape($.trim($("#email").val()));
+        pwd = $.trim($("#password").val());
+        if(!tel){
+            $(".email-error").text("请输入账号").show();
+            return false;
+        }else{
+            $(".email-error").hide();
+        }
+        if(!pwd){
+            $(".password-error").text("请输入密码").show();
+            return false;
+        }else{
+            $(".password-error").hide();
+        }
+        $.ajax({
+            type:"GET",
+            url: "../member/login",
+            data:{
+               tel:tel,
+                pwd:pwd
+            },
+            success:function (data){
+            	//console.log(data);
+            	console.log(href);
+                if(data==1 && (href==null || href=='')){
+                	window.location.href= "../index.html";
+                }else if(data==1 && href !=null && href !=''){
+                	localStorage.removeItem("href");
+                	window.location.href = href;
+                	
+                }else{
+                	 $(".email-error").text("用户不存在!!").show();
+                }
+                
+                
+            }
+        });
+    }
+    //回车事件调用登录方法
+    document.onkeydown=function(e){
+        var oEvent=e||event;
+        if(oEvent.keyCode==13){
+            $(".login-button").trigger("click");
+        }
+    };
+    </script>
+</body>
+</html>

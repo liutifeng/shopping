@@ -1,0 +1,518 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>享购网</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link href="../assets/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css~time=.css" +timestamp rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/member.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/AboutUs.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/orderShow.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/pagination.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css"/>
+    <script src="../assets/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+<div class="header">
+    <div class="top">
+       <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+             <div class="top-right fr">
+            <a href="../login/login.html" class="top-login">登录</a>
+             <a href="javascript:void(0)" id="top-exit" onclick="exit()" style="display: none;">退出</a>
+            <a href="../login/register.html" id="top-register" class="top-register">注册</a>
+            <a href="../userInfo/user-info1.html" class="top-user"></a>
+            
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+          
+        
+          
+            
+            <!-- <a href="https://www.kuaidi100.com/openapi/applyapi.shtml?free=free" class="top-cart">快递查询</a> -->
+        </div>
+    </div>
+</div>
+<div class="search-wrapper ofh">
+    <a href="../index.html"><img src="../images/logo-left.png" class="logo-left"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<div class="body">
+    <div class="csw_BoxH csw_width" style="margin:25px auto 25px auto">
+        <div class="cswX_hyL csw_left">
+            <div class="personalDetails">
+                <img src="../assets/images/def_icon1.jpg" alt="" height="83px" width="83px"/>
+
+                <p></p>
+            </div>
+            <div style="width: 168px;height: 1px;margin: 0 auto;padding: 0;background-color: #f5f5f5;overflow: hidden;"></div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="jygl1" class="csw_tb43" onclick="javascript:closeMenu('jygl')">
+                    <input type="button" id="jygl2" class="csw_tb42" onclick="javascript:openMenu('jygl')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>订单和购买</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="jygl3">
+                <ul>
+                    <li class="current">
+                        <a href="order-list.html">查看订单</a>
+                    </li>
+                    <li>
+                        <a href="../userInfo/address.html">收货地址簿</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="hyfk1" class="csw_tb43" onclick="javascript:closeMenu('hyfk')">
+                    <input type="button" id="hyfk2" class="csw_tb42" onclick="javascript:openMenu('hyfk')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>我的账户</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="hyfk3">
+                <ul>
+                    <li>
+                        <a href="../userInfo/account-safe.html">账号安全</a>
+                    </li>
+                    <li>
+                        <a href="../userInfo/user-info1.html">修改个人资料</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="xg_user_ad"></div>
+        </div>
+        <div class="cswX_hyR csw_right" id="showOrder">
+            <div class="cswX_ddlbBox csw_clear">
+                <div class="select_box1" style=" margin-bottom:10px;">
+                    <ul id="orderChoose">
+                        <li class="cur"  @click="getOrderList(0)">所有订单</li>
+                        <li class=""><a   @click="getOrderList(1)">待付款订单</a></li>
+                        <li class=""><a  @click="getOrderList(2)">待发货订单</a></li>
+                        
+                    </ul>
+                    <div class="order-timesearch" style="width:540px">
+                        <form method="GET" name="userOrderSearchForm" action="/member/userOrderSearch"
+                              style="margin-bottom:0; margin-left:0; margin-right:0; margin-top:0">
+                            <input type="hidden" name="actionType" value="fglist"/>
+                            <input type="hidden" name="delflag" value="0"/>
+                            <input type="hidden" name="dataType" value=""/>
+                            <input type="hidden" name="selectedLable" value=''/>
+
+                           
+                        </form>
+                    </div>
+                </div>
+                <div style="display: block;"  >
+                   <div class="order-tab" v-for="(order,index) in orders" :key="index">
+        <div class="orderDetail" style="display: block;">
+            <table cellspacing="0" cellpadding="0" border="0" class="cswX_wlgs_sz xg_topLine ckdd">
+                <tbody>
+                <tr>
+                    <th colspan="5" style="background-color:#CFF3F1;">
+                        <div class="order-th">
+                            <strong style="float:left;">
+                                订单编号：<b>{{order.ono}}</b>
+                                下单时间：<b>{{order.odate}}</b>
+                                <img style="width: 18px;margin-top:4px;" src="../images/question.png" title="在线支付订单，请在下单后24小时内及时付款。若超出24小时仍未付款，系统会将订单自动转为无效">
+                            </strong>
+                            <p>
+                                <strong style="padding-left:5px;">
+                                    状态：
+                                </strong>
+                                <strong>
+                                    
+                                   <span v-if="order.status==1">代付款</span>
+                                    <span v-else>已付款</span>
+                                    
+                                </strong>
+                                                <!--<span><a href="javascript:sellAgain('SO20191002095005306');">-->
+                                                    <!--再次购买</a></span>-->
+                                <b style="order-th-span" class="check02">
+                                    <a href="javascript:void(0)" onclick="detailOreder('SO20191002095005306')">查看订单详情</a>
+
+                                    
+                                    | <a v-if="order.status==1" href="javascript:void(0)" @click="remOreder(order)">取消订单</a>   <a v-else href="javascript:void(0)" @click="remOreder(order)">删除订单</a> 
+                                    
+
+                                </b>
+                            </p>
+                        </div>
+                    </th>
+                </tr>
+                
+                <tr v-for="(item,index) in order.item" :key="index">
+                    <td width="58%" class="border_img">
+                        <b>
+                            <a href="javascript:void(0)"><img :src="item.spare" align="absmiddle"></a>
+                        </b>
+                        <div style="float:left;display:block; text-align:left;margin-top: 7px;">
+<span>
+<a id="link" href="javascript:void(0)" @click="toProduct(item)">{{item.gname}}</a>
+<br>
+</span>
+                        </div>
+                    </td>
+                    <td width="20%" align="center">
+                        ￥  {{item.price.toFixed(2)}}
+                    </td>
+                    <td width="7%" align="center">X{{item.num}}</td>
+                    <td width="15%" align="center">
+                        小计 {{(item.price*item.num).toFixed(2)}}<p></p>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td colspan="4" class="zongji">
+                        <div class="dd_tit">
+                            
+                            <input v-if="order.status==1"  style="padding-left:0px;" id="mybtn_ys" type="button" value="立即付款" @click="buyNow(order)">
+                             <input v-else  style="padding-left:0px;" id="mybtn_ys" type="button" value="再次购买" @click="buyAgain(order)">
+                            <p>
+                                订单总金额：￥<b>{{order.price.toFixed(2)}}</b>
+                                (运费：￥10.00)
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</div>
+<div class="ifooter">
+    <div class="pwm serivcelist clearfix">
+      
+
+        <p class="paylogo" style="margin-top:0px;"></p>
+    </div>
+    <div style="width:300px;margin:0 auto; padding:0px 0 20px 0;">
+        
+           
+              
+
+            <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">乐购.快乐的购物</p></a>
+    </div>
+</div>
+<script src="../js/common/jquery-1.10.2.min.js"></script>
+<script src="../js/common/artTemplate.js"></script>
+<script src="../js/common/dialog.js"></script>
+<script src="../js/common/vue.js"></script>
+<script src="../js/common/url.js"></script>
+<script src="../js/common/jquery.pagination.js"></script>
+
+<script type="text/javascript">
+   
+  
+    $(function () {
+        askNav();
+        checkLogin();
+       
+
+    });
+    
+    //vue
+    const test=new Vue({
+       	el:"#showOrder",
+       	
+       	data:{
+       		orders:[]
+       		
+       		
+       	
+       		
+       	},
+       methods:{
+    	   getOrderList(a){
+    		   //alert(a);
+    		   that=this;
+    		   if(a==0){
+    			 $.post("../orderItem/findOrder",function(data){
+           		  console.log(data);
+           		   that.orders=data;
+           	   },'json'); 
+    		   }else if(a==1){
+    			 $.post("../orderItem/findOrder",{status:1},function(data){
+          		   console.log(data);
+          		  that.orders=data;
+          	   },'json'); 
+    			 
+    		   }else if(a==2){
+    			   $.post("../orderItem/findOrder",{status:2},function(data){
+            		   console.log(data);
+            		   that.orders=data;
+            	   },'json');
+    		   }
+        	   
+    	   },    	     	   
+    	   toProduct(item){
+    		   $('#link').attr('href',"../products/product-detail.html?gno="+item.gno);
+    	   },
+    	   remOreder(order){
+    		  // alert("a");
+    		  let ono=order.ono;
+    		  //alert(ono);
+    		  $.post('../orderItem/delOrder',{ono:ono},function(data){
+    			  console.log(data);
+    			  if(data==1){
+    				  alert("删除成功!!");
+    				  location.reload(true);
+    			  }else{
+    				  alert("删除失败!!");
+    				  location.reload(true); 
+    			  }
+    		  },'text');
+    	   },
+    	   buyAgain(order){
+    		  let price=order.price.toFixed(2);
+    		  let ano=order.ano;
+    		  let pname=order.pname;
+    		  let ono=(Math.random()*10000000).toString(16).substr(0,4)+''+(new Date()).getTime()+''+Math.random().toString().substr(2,5);
+    			$.post("../orderItem/addOrder",{ano:ano,pname:pname,price:price,ono:ono},function(data){
+       				//console.log(data);
+       				if(data==1){
+       					console.log(order.item);
+       					let cars=order.item;
+       					//console.log(cars);
+       					for(let i=0;i<cars.length;i++){
+       						cars[i].ono=ono;
+       					}
+       					//console.log(cars);
+       					$.ajax({
+
+       					    type: "POST",
+       					    contentType: 'application/json; charset=UTF-8',
+       					    dataType: "json",
+       					    url: "../orderItem/insertOrder",
+       					    
+       					 data: JSON.stringify(cars), 
+        				    async:false,
+       					   
+       					    success: function (data) {
+       							//console.log(data);
+       							if(data!=0){
+       								//console.log(price+"price");
+       								//console.log(ono);
+       								//$.post("../ali/pay",{count:price,id:ono}{
+       								 let url = '../ali/pay?count='+price+'&id='+ono;
+       						        window.location.href = url;
+       									
+       								//);
+       								
+       							}else{
+       								alert("生成订单失败!");
+       								window.location.href="../order/order-list.html";
+       							}
+       							
+       					    }
+       					});
+       				}
+       				
+       			},'json');
+    	   },
+    	   buyNow(order){
+    		   let price=order.price.toFixed(2);
+    		   let ono=order.ono;
+    		   let url = '../ali/pay?count='+price+'&id='+ono;
+		        window.location.href = url;
+    	   
+    		   
+    	   }
+    	   
+       },
+   	created(){
+    	   that=this;
+    	   $.post("../orderItem/findOrder",function(data){
+    		   console.log(data);
+    		   that.orders=data;
+    	   },'json');
+    	   
+    	   
+       }
+       
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //验证登录
+   function checkLogin(){
+    	
+    	//alert(href);
+	  
+	   $.post('../member/checkLogin',function(data){
+		   //console.log(data);
+		   //console.log(localStorage.getItem("href"));
+		   if(data!=null &&data!=''){
+			   $('.top-login').text(data.nickname);
+			   let show=document.getElementById("top-exit");
+			   show.style.display = "inline";
+			  
+		   }
+		   else if(data==null || data==''){
+			   //console.log('aaa');
+			   let href=window.location.href;
+			   localStorage.setItem("href", href);
+			   window.location.href="../login/login.html";
+		   }
+	   });
+	   
+    }
+    
+    //登录后退出
+    function exit(){
+    	$.post('../member/quit',function(data){
+ 		   console.log(data);
+ 		  if(data==1){
+ 			 //localStorage.removeItem("href");
+ 			 window.location.href="../login/login.html";
+ 		  }
+ 		  
+ 	   });
+    }
+   
+    // 加载导航
+    function askNav() {
+        $.ajax({
+            type:"GET",
+            url: "../type/findAll",
+            dataType:"json",
+            success: function (data) {
+            	//console.log(data);
+                var askData;
+                var navHtml = '<li><a href="../index.html">首页</a></li>';
+                for (var i = 0; i < data.length; i++) {
+                    
+                        navHtml += '<li>'+
+                            '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                            '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                               
+                                for (var j = 0; j < data[i].typeItem.length; j++) {
+                                	//console.log(data[i].typeItem[j].tname);
+                                	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                                	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                                	
+                                }
+                               // console.log(navHtml);
+                                navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                               
+                                //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                            
+                       
+                    
+                        //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                                
+                }
+              //  console.log(navHtml);
+                $('.navTop ul').html(navHtml);
+             
+            }
+        });
+    }
+   
+   
+
+    
+                      
+  
+    //订单选项卡
+    $("#orderChoose li").click(function(){
+        $("#orderChoose li").each(function(){
+            $(this).removeClass("cur");
+        });
+        $(this).addClass("cur");
+    });
+    //    搜索
+    $(".search-btn").on("click",function(){
+        searchKey();
+    });
+    function searchKey(){
+        sessionStorage.removeItem("typePath");
+        sessionStorage.removeItem("typeName");
+        var keyWord = $.trim($(".search-input").val());
+        if (keyWord==null || keyWord.length <=0) {
+            dialogModule.iTips("请输入搜索的关键字");
+            return false;
+        }else{
+            sessionStorage.keyWord = keyWord;
+            window.location.href = "../products/product-all.html";
+        }
+    }
+    function searchKeyDown(event){
+        if (event.keyCode == 13) {
+            event.returnValue = false;
+            event.cancel = true;
+            searchKey();
+        }
+    }
+    $('.navTop').on('click', '#tno', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+        $('.navTop').on('click', '#tino', function(){
+            if ($(this).data('num')) {
+                window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+                //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+            }
+        });
+    $('.tuangou').hover(function(){
+        $('.together-bottom').hide();
+        $('.together-top').show();
+        $('.leibie').show();
+    },function(){
+        $('.together-top').hide();
+        $('.together-bottom').show();
+        $('.leibie').hide();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet" href="css/bootstrap.min.css" >
+<script type="text/javascript" src="js/common/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<body>
+<!-- 按钮触发模态框 -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+	开始演示模态框
+</button>
+
+<!--模态框组件-->
+<div class="modal fade" id="myModal" >
+    <div class="modal-dialog" style="width:200px;">
+        <div class="modal-content"  >
+        	<!-- #696969灰色  #20B2AA蓝绿色 -->
+	        <div class="modal-header" style="height:40px;background-color: #20B2AA;">
+	            <a style="color: white;font-size: 15px;font-weight: bold;">提示</a>
+	        </div>
+	        <div class="modal-body" style="background-color: #;">
+	        <div id="selectTree" class="ztree" style="height:30px;overflow:auto; ">
+	        <p>确定要关闭警告框信息？</p>
+	        </div>
+	        </div>
+	        <div class="modal-footer" style="height:50px;">
+	       		<button class="btn btn-default" data-dismiss="modal">取消</button>
+	           	<button class="btn " data-dismiss="modal" style="background-color: #20B2AA;color: white;">确定</button>
+	        </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!--添加用户行为-->
+<script type="text/javascript">
+        $(function(){
+            $(".close").click(function(){
+                $(this).alert("close");
+            });
+            $(".alert").on("close.bs.alert",function(e){
+                $("#myModal").modal();
+            });
+        });
+</script>
+
+</html>

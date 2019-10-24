@@ -1,0 +1,464 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>享购网</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link href="../css/common/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/base.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/common/common.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/member.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/AboutUs.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/orderShow.css" rel="stylesheet" type="text/css"/>
+    <link href="../assets/css/index.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/common/laydate/laydate.js"></script>
+</head>
+<body>
+
+
+<!-- Copyright � 2005. Spidersoft Ltd -->
+<style>
+A.applink:hover {border: 2px dotted #DCE6F4;padding:2px;background-color:#ffff00;color:green;text-decoration:none}
+A.applink       {border: 2px dotted #DCE6F4;padding:2px;color:#2F5BFF;background:transparent;text-decoration:none}
+A.info          {color:#2F5BFF;background:transparent;text-decoration:none}
+A.info:hover    {color:green;background:transparent;text-decoration:underline}
+</style>
+
+
+<div class="header">
+     <div class="top">
+        <div class="top-left">
+            <a href="javascript:void(0)" style="cursor: default">您好，欢迎光临乐购网！</a>
+        </div>
+        <div class="top-right fr">
+            
+            <a href="javascript:void(0)" class="top-exit" onclick="exit()">退出</a>
+            <a href="../order/order-list.html" class="top-order">我的订单</a>
+            <a href="../car/car.html" class="top-cart">购物车</a>
+            
+        </div>
+    </div>
+</div>
+<div class="search-wrapper ofh">
+    <a href="../index.html"><img src="../images/logo-t.png" class="logo-left"></a>
+    <div class="search">
+        <input name="name" style="margin: 0" class="search-input" type="text" placeholder="请输入想要搜索的内容" onkeydown="searchKeyDown(event);">
+        <span class="search-btn fr"><img src="../images/search.jpg"></span>
+    </div>
+</div>
+<div class="navTop">
+    <div class="navTop-box">
+        <ul>
+
+        </ul>
+    </div>
+</div>
+<div class="body">
+    <div class="csw_BoxH csw_width ">
+        <div class="cswX_hyL csw_left">
+            
+            <div style="width: 168px;height: 1px;margin: 0 auto;padding: 0;background-color: #f5f5f5;overflow: hidden;"></div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="jygl1" class="csw_tb43" onclick="javascript:closeMenu('jygl')">
+                    <input type="button" id="jygl2" class="csw_tb42" onclick="javascript:openMenu('jygl')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>订单和购买</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="jygl3">
+                <ul>
+                    <li>
+                        <a href="../order/order-list.html">查看订单</a>
+                    </li>
+                    <li>
+                        <a href="address.html">收货地址簿</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cswX_htMbt">
+                <h5>
+                    <input type="button" id="hyfk1" class="csw_tb43" onclick="javascript:closeMenu('hyfk')">
+                    <input type="button" id="hyfk2" class="csw_tb42" onclick="javascript:openMenu('hyfk')"
+                           style="display:none;">
+                    <img src="../assets/images/order/myGiftCard-little.png" alt=""/>
+                    <span>我的账户</span>
+                </h5>
+            </div>
+            <div class="cswX_htMList" id="hyfk3">
+                <ul>
+                    <li>
+                        <a href="account-safe.html">账号安全</a>
+                    </li>
+                    <li class="current">
+                        <a href="#">修改个人资料</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="xg_user_ad"></div>
+        </div>
+        <div class="cswX_hyR csw_right">
+            <div class="MessagePerson csw-right-main">
+                <div class="verification">
+                    <form name="infoEditForm" id="infoEditForm" method="post" action="/member/infoEdit">
+                        <table class="isgo-login-table">
+                            <tbody>
+                            <tr>
+                                <td width="110" align="right">
+                                    <div style="margin-top:-5px">昵称：</div>
+                                </td>
+                                <td>
+                                    <input id="userInfo-code" class="isgo-login-text isgotext" type="text"
+                                           placeholder="请输入您的昵称"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    <div>性 别：</div>
+                                </td>
+                                <td>
+                                    <input type="radio" value="男" name="sex" checked="checked" style="margin-right:7px"/>先生
+                                    <input type="radio" value="女" name="sex" checked="checked" style="margin-right:7px"/>女士
+                                    
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td width="110" align="right">
+                                    <div style="margin-top:-5px">email：</div>
+                                </td>
+                                <td>
+                                    <input id="userInfo-email" class="isgo-login-text isgotext" type="text"
+                                           placeholder="请输入您的邮箱"  value=""/>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                    <div class="save">
+                        <input class="saveAll" type="button" onclick="updateMember()" value="保存"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ifooter">
+    <div class="pwm serivcelist clearfix">
+      
+    </div>
+</div>
+<script src="../js/common/jquery-1.10.2.min.js"></script>
+<script src="../js/common/url.js"></script>
+<script src="../js/common/jquery.form.min.js"></script>
+<script src="../js/common/dialog.js"></script>
+<script type="text/javascript">
+$(function(){
+	askNav();
+});
+// 加载导航
+function askNav() {
+    $.ajax({
+        type:"GET",
+        url: "../type/findAll",
+        dataType:"json",
+        success: function (data) {
+        	//console.log(data);
+            var askData;
+            var navHtml = '<li><a href="../index.html">首页</a></li>';
+            for (var i = 0; i < data.length; i++) {
+                
+                    navHtml += '<li>'+
+                        '<span id="tno" class="jsClass" data-num="'+data[i].tno+'">'+data[i].tname+'</span>'+
+                        '<div class="hover-box life-box"> <div class="hover-left-box">  <h3><span data-num="'+data[i].tino+'">'+data[i].tname+'</span></h3>';
+                           
+                            for (var j = 0; j < data[i].typeItem.length; j++) {
+                            	//console.log(data[i].typeItem[j].tname);
+                            	 //navHtml+= '<a href="products/product-list.html?tino='+data[i].typeItem[j].tino+'" target="_blank"><span>'+data[i].typeItem[j].tname+'</span></a>';
+                            	navHtml+= '<span id="tino" data-num='+data[i].typeItem[j].tino+'>'+data[i].typeItem[j].tname+'</span>';
+                            	
+                            }
+                           // console.log(navHtml);
+                            navHtml+='</div> <img src="../assets/images/'+(i+1)+'.jpg"></a> </div> </li>' ;
+                           
+                            //'<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="./'+data.rows[i].url.imgUrl+'"></a>'+
+                        
+                   
+                
+                    //<!--navHtml += '<li><span class="jsClass" data-num="'+data.typeItem[i].tino+'">'+data.typeItem[i].tname+'</span></li>'--!>
+                            
+            }
+          //  console.log(navHtml);
+            $('.navTop ul').html(navHtml);
+         
+        }
+    });
+}
+function updateMember(){
+	
+	//alert(111111111);
+	var nickname=$("#userInfo-code").val();
+	var sex = $(':radio[name="sex"]:checked').val()
+	var email=$("#userInfo-email").val();
+
+    $.post('../member/updateMember',{nickname:nickname,email:email,sex:sex},function(data){
+    	if(data==1){
+    		alert(email);
+        	alert('修改成功！');
+    	}
+    	
+    	
+    },'json');
+}
+
+
+$('.navTop').on('click', '#tno', function(){
+    if ($(this).data('num')) {
+        window.location.href = $.url.locationUrl+"products/product-all.html?tno=" + $(this).data('num');
+        //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+    }
+});
+    $('.navTop').on('click', '#tino', function(){
+        if ($(this).data('num')) {
+            window.location.href = $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num');
+            //alert( $.url.locationUrl+"products/product-list.html?tino=" + $(this).data('num'));
+        }
+    });
+
+  /*  $(function () {
+        askNav();
+        checkLogin();
+        getUserInfo();
+    });
+    // 加载导航
+    function askNav() {
+        $.ajax({
+            type:"GET",
+            url: "../json/nav.json",
+            dataType:"json",
+            success: function (data) {
+                var askData;
+                var navHtml = '<li><a href="../index.html">首页</a></li>';
+                for (var i = 0; i < data.rows.length; i++) {
+                    if (data.rows[i].url) {
+                        navHtml += '<li>'+
+                            '<span class="jsClass" data-num="'+data.rows[i].Id+'">'+data.rows[i].name+'</span>'+
+                            '<div class="hover-box life-box">'+
+                                '<div class="hover-left-box">'+
+                                    '<h3><span data-num="'+data.rows[i].Id+'">'+data.rows[i].name+'</span></h3>'+
+
+                                '</div>'+
+                                '<a href="'+data.rows[i].url.aUrl+'" target="_blank"><img src="../'+data.rows[i].url.imgUrl+'"></a>'+
+                            '</div>'+
+                        '</li>';
+                    } else {
+                        navHtml += '<li><span class="jsClass" data-num="'+data.rows[i].Id+'">'+data.rows[i].name+'</span></li>'
+                    }
+                }
+                $('.navTop ul').html(navHtml);
+                for (var i = 0; i < data.rows.length; i++) {
+                    askData = data.rows[i].Id;
+                    $.ajax({
+                        type: "GET",
+                        url: $.url.webUrl + "doB2C/B2Ca_N_Display",
+                        dataType: "json",
+                        data: {
+                            "ParentId": askData,
+                            "VenderId": localStorage.getItem("VenderId")
+                        },
+                        success: function (dataa) {
+                            var spanHtml = '';
+                            if (dataa.total) {
+                                for (var i = 0; i < dataa.rows.length; i++) {
+                                    spanHtml += '<span data-num="'+dataa.rows[i].Id+'">'+dataa.rows[i].Name+'</span>';
+                                }
+                                $('.navTop li').each( function() {
+                                    if (dataa.rows[0].ParentId == ($(this).children('.jsClass').data('num'))) {
+                                        $(this).children('.hover-box').children('.hover-left-box').append(spanHtml);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+    //    用户信息
+    function getUserInfo() {
+        $.ajax({
+            type: "GET",
+            url: $.url.webUrl + "do4A/a2/MyInformation",
+            headers: {"Authorization": "Bearer " + $.cookie("accessToken")},
+            dataType: "json",
+            success: function (data) {
+                var text;
+                if (data.Code) {
+                    $("#userInfo-code").val(data.Code);
+                    text = data.Code;
+                } else {
+                    text = data.MobilePhone;
+                }
+                $(".top-user").text(text).attr({"data-user-id": data.Id, "data-user-phone": data.MobilePhone});
+                getLogo();
+
+                if (data.Sex == "1") {
+                    $("input[name=Sex]").eq(0).attr("checked", true);
+                } else if (data.Sex == "2") {
+                    $("input[name=Sex]").eq(1).attr("checked", true);
+                } else {
+                    $("input[name=Sex]").eq(2).attr("checked", true);
+                }
+                if (data.BirthDay) {
+                    $("#userInfo-birthday").val(data.BirthDay.split("T")[0]);
+                }
+                if (data.Name) {
+                    $("#userInfo-name").val(data.Name);
+                }
+                if (data.MobilePhone) {
+                    $("#userInfo-mobilePhone").val(data.MobilePhone);
+                    var mol1 = data.MobilePhone.substring(0,3);
+                    var mol2 = data.MobilePhone.substring(7,11);
+                    $(".personalDetails p").text(mol1+"****"+mol2);
+                }else{
+                    $("#userInfo-mobilePhone").val("");
+                    $(".personalDetails p").text(data.Code);
+                }
+                if(data.Icon){
+                    $("#headIconImage").attr("src", data.IconLong);
+                    imgPath = data.Icon;
+                }
+
+
+                if(data.Icon){
+                    $(".personalDetails img").attr("src",data.IconLong);
+                }
+            }
+        });
+    }
+
+    //选择图片
+    var imgPath = "";
+    function selectImage(file) {
+        if (!/..jpg|..gif|..png|..bmp|..jpeg/i.test(file.value)) {
+            alert("文件类型应为[jpg,gif,png,bmp,jpeg]其中之一");
+            return;
+        }
+        var reader = new FileReader();
+        var image = "";
+        reader.onload = function (evt) {
+            $("#headIconImage").attr("src", evt.target.result);
+            image = evt.target.result;
+        };
+        reader.readAsDataURL(file.files[0]);
+        var formData = new FormData();
+        formData.append("file" , file.files[0]);
+        $.ajax({
+            type: "POST",
+            url: $.url.webUrl + "doB2Ca_N_DateFile",
+            data: formData ,
+            processData : false,
+            contentType : false ,
+            timeout: 10000000,
+            headers:{"Authorization":"Bearer " + $.cookie("accessToken")},
+            success: function (data) {
+                imgPath = data.Path;
+            }
+        });
+    }
+
+
+    $(".saveAll").on("click", function () {
+        // var flag = checkUserInfoForm();
+        // if (flag == false) {
+        //     return false;
+        // }
+
+        var mobilePhone = $.trim($("#userInfo-mobilePhone").val());
+        if (!mobilePhone){
+            dialogModule.iTips("请输入您的电话");
+            return false;
+        }
+        if (mobilePhone && !/^(1[35784]\d{9})$/.test(mobilePhone)) {
+            dialogModule.iTips("请输入格式正确的手机号码");
+            return false;
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: $.url.webUrl + "do4A/a2/MyInformation",
+            headers: {"Authorization": "Bearer " + $.cookie("accessToken")},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Content-Type", 'application/json');
+            },
+            data: JSON.stringify({
+                "Code": $("#userInfo-code").val(),
+                "Sex": $("input[name=Sex]:checked").val(),
+                "BirthDay": $("#userInfo-birthday").val(),
+                "Name": $("#userInfo-name").val(),
+                "MobilePhone": $("#userInfo-mobilePhone").val(),
+                "IsAvailable": "1",
+                "Icon":imgPath
+            }),
+            success: function (data) {
+                dialogModule.iTips("修改成功");
+                setTimeout(function () {
+                    location.reload();
+                },500)
+
+
+            }
+        });
+    });
+    var mobilePhone;
+    function checkUserInfoForm() {
+        mobilePhone = $.trim($("#userInfo-mobilePhone").val());
+        if (mobilePhone && !/^(1[35784]\d{9})$/.test(mobilePhone)) {
+            dialogModule.iTips("请输入格式正确的手机号码");
+            return false;
+        }
+        return true;
+    }
+    //    搜索
+    $(".search-btn").on("click",function(){
+        searchKey();
+    });
+    function searchKey(){
+        sessionStorage.removeItem("typePath");
+        sessionStorage.removeItem("typeName");
+        var keyWord = $.trim($(".search-input").val());
+        if (keyWord==null || keyWord.length <=0) {
+            dialogModule.iTips("请输入搜索的关键字");
+            return false;
+        }else{
+            sessionStorage.keyWord = keyWord;
+            window.location.href = "../products/product-all.html";
+        }
+    }
+    function searchKeyDown(event){
+        if (event.keyCode == 13) {
+            event.returnValue = false;
+            event.cancel = true;
+            searchKey();
+        }
+    }
+    $('.navTop').on('click', 'span', function(){
+        if ($(this).data('num')) {
+            window.location.href = "../products/product-list.html~DisplayId=.html" + $(this).data('num');
+        }
+    });
+    $('.tuangou').hover(function(){
+        $('.together-bottom').hide();
+        $('.together-top').show();
+        $('.leibie').show();
+    },function(){
+        $('.together-top').hide();
+        $('.together-bottom').show();
+        $('.leibie').hide();
+    });*/
+    
+</script>
+</body>
+</html>

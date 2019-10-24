@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
+    <context:component-scan base-package="com.yc" >
+        <!--配置哪些注解不扫描-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    
+ <context:property-placeholder location="classpath:redis.properties,classpath:db.properties"/>
+ 
+    <!--Spring整合MyBatis框架-->
+    
+    <!--配置连接池-->
+   
+   
+ <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+     <property name="user" value="${username}"></property>
+    <property name="password" value="${password}"></property>
+     <property name="driverClass" value="${driver}"></property>
+     <property name="jdbcUrl" value="${url}"></property>
+ </bean>
+<!-- 配置sqlSessionfactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <!-- 映射文件的地址 -->
+    <!-- <property name="mapperLocations" value="classpath*:/*Mapper.xml" ></property> -->
+    
+    <!-- 使用别名的包 -->
+    <property name="typeAliasesPackage" value="com.yc.po"></property>
+    <!-- 配置属性信息 采用驼峰法 -->
+    <property name="configuration" >
+    <bean class="org.apache.ibatis.session.Configuration">
+    <property name="mapUnderscoreToCamelCase" value="true"></property>
+    </bean>
+    
+    </property>
+    </bean>
+    
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <!-- 扫描映射mybatis mapper.xml 的基础包 加入ico容器  与上面的 <property name="mapperLocations"
+     value="classpath*:/*Mapper.xml" ></property> 功能相同 根据映射文件找对应接口-->
+    <property name="basePackage" value="com.yc.dao"></property> 
+    </bean>
+  
+<!--配置Spring框架声明式事务管理-->
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!--配置事务通知-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="*" isolation="DEFAULT"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置AOP增强-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* cn.itcast.service.impl.*ServiceImpl.*(..))"/>
+    </aop:config>
+   <!-- 启动事务注解 -->
+   <tx:annotation-driven transaction-manager="transactionManager"/>
+   
+   
+   <!-- redis配置 -->
+<!-- 导入spring-redis配置文件  -->
+  
+    <!-- redis数据源  -->
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 最大空闲数 -->
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <!-- 最大连接数 -->
+        <property name="maxTotal" value="${redis.maxTotal}" />
+        <!-- 最大等待时间 -->
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <!-- 连接超时时是否阻塞，false时报异常，true阻塞到直到超时，默认true -->
+        <property name="blockWhenExhausted" value="${redis.blockWhenExhausted}"/>
+        <!-- 返回连接时，检测连接是否成功 -->
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+    <!-- Spring整合Jedis -->
+    <bean  id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <!-- 指定连接地址 -->
+        <property name="hostName" value="127.0.0.1"/>
+        <!-- 指定端口号 -->
+        <property name="port" value="6379"/>
+        <!-- 自定义连接池的配置 -->
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+ 
+    <!-- RedisTempLate -->
+    <bean class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
+
+
+   
+    
+</beans>
